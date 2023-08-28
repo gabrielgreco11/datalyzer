@@ -1,0 +1,148 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/home.css') }}">
+<div class="welcome">
+<p >Willkommen,</p>
+<p class="welcome-text">Schön das du es hier her gefunden hast.</p>
+<p class="welcome-text">Bitte Melde dich auf den Feldern unten an.</p>
+<p class="welcome-text">Bei weiteren fragen kannst du dich gerne bei Jlaria Inglese auf Teams melden.</p>
+<p class="welcome-text">Weitere Infos findest du <a href="/info">hier</a></p>
+</div>
+
+
+<div class="anmelden">
+    <img class="left_div image" src="https://www.uni-luebeck.de/typo3temp/_processed_/e/d/csm_ball_a1817_22b3fc9508.jpg">
+    <div class="empty"></div>
+    <div class="right_div">
+    <p class="anmeldung-text">Anmelden/Infos</p>
+    <div class="box">
+      {% if opened == True %}
+    <input id="vorname" type="text" name="vorname" placeholder="VorName">
+    <input id="name" type="text" name="name" placeholder="Name">
+    <input id="class" type="text" name="class" placeholder="Klasse">
+    <input id="email" type="email" name="email" placeholder="Email">
+    <div class="antwortDiv" id="antwortDiv"></div>
+    <!--<input type="password" name="pw" placeholder="Password"> -->
+    <input id="submit" type="submit" onclick="send()" name="submit" value="Submit"></input>
+    {%else%}
+    <p>Close</p>
+    {% endif %}
+</div>
+    </div>
+    </div>
+  
+<script>
+const url = "https://sek-abschlussball.ch/formular";
+function send() {
+  
+  var vorname = document.getElementById("vorname");
+  var namee = document.getElementById("name");
+  var classe = document.getElementById("class");
+  var email = document.getElementById("email");
+  var antwortDiv = document.getElementById("antwortDiv");
+  var submit = document.getElementById("submit");
+  var vornameValue = vorname.value;
+  var nameValue = namee.value;
+  var classeValue = classe.value;
+  var emailValue = email.value;
+  var proofEmailRegex = /\S+@\S+\.\S+/;
+
+  
+
+  if (vornameValue == "" || nameValue == "" || classeValue == "" || emailValue == "") {
+    if(vornameValue == "") {
+      vorname.style.background = "Red";
+    }
+    if(nameValue == "") {
+      namee.style.background = "Red";
+    }
+    if(classeValue == "") {
+      classe.style.background = "Red";
+    }
+    if(emailValue == "") {
+      email.style.background = "Red";
+    }
+    
+    return;
+  }
+
+  if (proofEmailRegex.test(emailValue) == false) {
+    email.style.background = "Red";
+    return;
+  }
+
+  // Zurücksetzen des Button-Hintergrunds
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ vorname: vornameValue, name: nameValue, classe: classeValue, email: emailValue }),
+  })
+    .then(response => {
+      // Überprüfen, ob die Anfrage erfolgreich war
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      // Konvertieren der Antwort in Text
+      return response.text();
+    })
+    .then(data => {
+      // Anzeigen der Antwort im Antwort-Div
+      data = JSON.parse(data)
+      submit.value = data.result;
+      submit.style.background = data.color;
+      vorname.value = "";
+      namee.value = "";
+      classe.value = "";
+      email.value = "";
+      setTimeout(finished, 5000);
+      
+
+
+
+    })
+    .catch(error => {
+      // Anzeigen einer Fehlermeldung im Antwort-Div
+      antwortDiv.innerText = `Fehler: ${error.message}`;
+    });
+}
+function finished(){
+  var submit = document.getElementById("submit");
+  var vorname = document.getElementById("vorname");
+  var namee = document.getElementById("name");
+  var classe = document.getElementById("class");
+  var email = document.getElementById("email");
+  submit.style.background = "white";
+  submit.value = "Submit";
+
+
+}
+</script>
+<script>
+
+var vorname = document.getElementById("vorname");
+var namee = document.getElementById("name");
+var classe = document.getElementById("class");
+var email = document.getElementById("email");
+var proofEmailRegex = /\S+@\S+\.\S+/;
+vorname.oninput = function() {
+  vorname.style.background = "white";
+  
+}
+namee.oninput = function() {
+  namee.style.background = "white";
+  
+}
+classe.oninput = function() {
+  classe.style.background = "white";
+}
+email.oninput = function() {
+  
+  if (proofEmailRegex.test(email.value) == false) {
+    email.style.background ="lightcoral";
+  }else{
+    email.style.background = "white";
+  }
+}
+</script>
+{% endblock %}

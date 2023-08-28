@@ -1,4 +1,4 @@
-import requests, sys, time, os, argparse
+import requests, sys, time, os, argparse, json
 
 # List of simple to collect features
 snippet_features = ["title",
@@ -17,11 +17,11 @@ header = ["video_id"] + snippet_features + ["trending_date", "tags", "view_count
 
 
 def setup(api_path, code_path):
-    with open(api_path, 'r') as file:
-        api_key = "AIzaSyDQpVIFuKXKv_GKgroa_CMPP_tOuzbMmcw"
+    api_key = "AIzaSyDQpVIFuKXKv_GKgroa_CMPP_tOuzbMmcw"
 
-    with open(code_path) as file:
-        country_codes = [x.rstrip() for x in file]
+    with open("config.json") as f:
+        country_json = json.load(f)["country"]
+        country_codes = [x for x in country_json.keys()]
 
     return api_key, country_codes
 
@@ -97,7 +97,7 @@ def get_videos(items):
                                                                        comment_count, thumbnail_link, comments_disabled,
                                                                        ratings_disabled, description]]
         lines.append(",".join(line))
-        print(video_id)
+        print(video_id, thumbnail_link)
     return lines
 
 
