@@ -1,4 +1,4 @@
-import requests, sys, time, os, argparse, json
+import requests, sys, time, os, argparse, json, datetime
 
 # List of simple to collect features
 snippet_features = ["title",
@@ -49,7 +49,7 @@ def get_tags(tags_list):
 
 
 def get_videos(items):
-    lines = []
+    data = {}
     for video in items:
         comments_disabled = False
         ratings_disabled = False
@@ -60,7 +60,7 @@ def get_videos(items):
             continue
 
         # A full explanation of all of these features can be found on the GitHub page for this project
-        video_id = prepare_feature(video['id'])
+        video_id = video['id']
 
         # Snippet and statistics are sub-dicts of video, containing the most useful info
         snippet = video['snippet']
@@ -93,12 +93,23 @@ def get_videos(items):
             comment_count = 0
 
         # Compiles all of the various bits of info into one consistently formatted line
-        line = [video_id] + features + [prepare_feature(x) for x in [trending_date, tags, view_count, likes, dislikes,
-                                                                       comment_count, thumbnail_link, comments_disabled,
-                                                                       ratings_disabled, description]]
-        lines.append(",".join(line))
-        print(video_id, thumbnail_link)
-    return lines
+
+        
+        data[video_id] = {
+            # "features": features,
+            # "trending_date":prepare_feature(trending_date),
+            # "tags":prepare_feature(tags),
+            "view_count":"1",
+            # "likes":prepare_feature(likes),
+            # "dislikes":prepare_feature(dislikes),
+            # "comment_count":prepare_feature(comment_count),
+            # "thumbnail_link":prepare_feature(thumbnail_link),
+            # "comments_disabled":prepare_feature(comments_disabled),
+            # "ratings_disabled":prepare_feature(ratings_disabled),
+            # "description":prepare_feature(description),
+
+        }
+    return data
 
 
 def get_pages(country_code, next_page_token="&"):
@@ -128,10 +139,14 @@ def write_to_file(country_code, country_data):
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
+    if not os.path.exists(f"{output_dir}/{datetime.datetime.now().strftime('%d_%m')}.json"):
+        os.system("echo {}>"+f"{output_dir}/{datetime.datetime.now().strftime('%d_%m')}.json")
+        data= {}
+    else:
+        with open(f"{output_dir}/{datetime.datetime.now().strftime('%d_%m')}.json") as f:
+            data = json.load(f)
 
-    with open(f"{output_dir}/{time.strftime('%y.%d.%m')}_{country_code}_videos.csv", "w+", encoding='utf-8') as file:
-        for row in country_data:
-            file.write(f"{row}\n")
+    print(country_data)
 
 
 def get_data():
