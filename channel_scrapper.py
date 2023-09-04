@@ -2,31 +2,6 @@ from flask import Flask, render_template , request,url_for, redirect, session, s
 import json, requests, datetime
 import os
 
-application = Flask(__name__)
-application.secret_key = "vS44D3LML9gi0vu1SAsjYePZ5TM6ecVyjgJcgZeMNVXS6HBkiy"
-
-@application.route("/")
-def home():
-    with open("config.json") as f:
-        data = json.load(f)
-    user_agent = request.user_agent.string
-    if 'Mobile' in user_agent or 'Tablet' in user_agent:
-        print("mobile")
-    else:
-        return render_template("home.html")
-@application.errorhandler(404)
-def not_found(e):
-    return render_template("404.html")
-@application.route("/rick")
-def rick_role():
-    return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
-
-
-
-
-
-
-
 def scrapper():
     print("Test")
     api_key, country_codes = setup()
@@ -43,8 +18,12 @@ def scrapper():
 def api_requests(country_code, api_key, next_page_token="&"):
     country_data = []
 
+    today = datetime.date.today()
+    two_months_ago = today - datetime.timedelta(days=60)
+    published_after = two_months_ago.isoformat() + 'T00:00:00Z'
+    published_before = today.isoformat() + 'T00:00:00Z'
     while next_page_token is not None:
-        request_url = f"https://www.googleapis.com/youtube/v3/videos?part=id,statistics,snippet{next_page_token}chart=mostPopular&regionCode={country_code}&maxResults=50&key={api_key}"
+        request_url = f'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&order=rating&type=channel&regionCode={country_code}&publishedAfter={published_after}&publishedBefore={published_before}&key={api_key}'
         request = requests.get(request_url)
         if request.status_code == 429:
             print("Temp-Bann")
@@ -53,9 +32,26 @@ def api_requests(country_code, api_key, next_page_token="&"):
         next_page_token = video_data_page.get("nextPageToken", None)
         next_page_token = f"&pageToken={next_page_token}&" if next_page_token is not None else next_page_token
 
-        
-        items = video_data_page.get('items', [])
-    return items
+        channels = []
+        for item in video_data_page.get('items', []):
+            if item['id']['kind'] == 'youtube#channel':
+                channel_id = item['id']['channelId']
+                channel_name = item['snippet']['title']
+                subscriber_count = None  # Hier können Sie die Abonnentenzahl abrufen, falls gewünscht.
+
+                channels.append({
+                    'Channel Name': channel_name,
+                    'Channel ID': channel_id,
+                    'Subscriber Count': subscriber_count,
+                })
+        for channel in channels:
+            print(f"Channel Name: {channel['Channel Name']}")
+            print(f"Channel ID: {channel['Channel ID']}")
+            print(f"Subscriber Count: {channel['Subscriber Count']}")
+            print()
+        with open(f"{output_dir}/{datetime.datetime.now().strftime('%d_%m')}.json", "w")as f:
+            json.dump(video_data_page, f, indent=4)
+    exit(-4)
 
 
 def converter(items, country):
@@ -116,11 +112,9 @@ def setup():
 
 
 
-
-
-
 if __name__ == "__main__":
     with open("config.json") as f:
         data = json.load(f)
-    #scrapper()
-    application.run(host="0.0.0.0",debug=True,port=5000)
+    output_dir = "output/"
+    scrapper()
+

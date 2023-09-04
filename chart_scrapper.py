@@ -1,32 +1,6 @@
 from flask import Flask, render_template , request,url_for, redirect, session, send_file,jsonify
 import json, requests, datetime
 import os
-
-application = Flask(__name__)
-application.secret_key = "vS44D3LML9gi0vu1SAsjYePZ5TM6ecVyjgJcgZeMNVXS6HBkiy"
-
-@application.route("/")
-def home():
-    with open("config.json") as f:
-        data = json.load(f)
-    user_agent = request.user_agent.string
-    if 'Mobile' in user_agent or 'Tablet' in user_agent:
-        print("mobile")
-    else:
-        return render_template("home.html")
-@application.errorhandler(404)
-def not_found(e):
-    return render_template("404.html")
-@application.route("/rick")
-def rick_role():
-    return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
-
-
-
-
-
-
-
 def scrapper():
     print("Test")
     api_key, country_codes = setup()
@@ -44,7 +18,7 @@ def api_requests(country_code, api_key, next_page_token="&"):
     country_data = []
 
     while next_page_token is not None:
-        request_url = f"https://www.googleapis.com/youtube/v3/videos?part=id,statistics,snippet{next_page_token}chart=mostPopular&regionCode={country_code}&maxResults=50&key={api_key}"
+        request_url = f"https://www.googleapis.com/youtube/v3/videos?part=id,statistics,snippet{next_page_token}chart=mostPopular&regionCode=DE&maxResults=50&key={api_key}"
         request = requests.get(request_url)
         if request.status_code == 429:
             print("Temp-Bann")
@@ -114,13 +88,3 @@ def setup():
 
     return api_key, country_codes
 
-
-
-
-
-
-if __name__ == "__main__":
-    with open("config.json") as f:
-        data = json.load(f)
-    #scrapper()
-    application.run(host="0.0.0.0",debug=True,port=5000)

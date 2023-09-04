@@ -2,12 +2,6 @@
     "country":{
         "DE":{
             "displayname":"Detuschland"
-        },
-        "US":{
-            "displayname":"USA"
-        },
-        "GB":{
-            "displayname":"Grossbritanien"
         }
     }
 }
