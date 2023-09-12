@@ -22,7 +22,9 @@ def api_requests(country_code, api_key, next_page_token="&"):
     two_months_ago = today - datetime.timedelta(days=60)
     published_after = two_months_ago.isoformat() + 'T00:00:00Z'
     published_before = today.isoformat() + 'T00:00:00Z'
-    while next_page_token is not None:
+    maximun = 1
+    while next_page_token is not None and maximun < 10:
+        maximun = maximun + 1
         request_url = f'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&order=rating&type=channel&regionCode={country_code}&publishedAfter={published_after}&publishedBefore={published_before}&key={api_key}'
         request = requests.get(request_url)
         if request.status_code == 429:
