@@ -31,7 +31,10 @@ for URL in URL_list:
                 'views': row.div.span.text
             }
         elif "https://nindo.de/charts/youtube/likes" == URL:
-            quotes[row.findAll('span')[2].text] = {
+            if row.findAll('span')[2].text in quotes :
+                 quotes[row.findAll('span')[2].text]["likes"] = row.div.span.text
+            else:
+                quotes[row.findAll('span')[2].text] = {
                 'url': row['href'],
                 'likes': row.div.span.text
             }
