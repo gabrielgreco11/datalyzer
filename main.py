@@ -26,6 +26,11 @@ def rick_role():
 def timer(date):
     return render_template("timer.html")
 
+@application.route("/restart")
+def restart():
+    open("restart","w")
+    return "Erfolgreich Gestartet"
+
 
 
 
