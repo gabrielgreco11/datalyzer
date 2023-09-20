@@ -7,12 +7,14 @@ application.secret_key = "vS44D3LML9gi0vu1SAsjYePZ5TM6ecVyjgJcgZeMNVXS6HBkiy"
 
 @application.route("/")
 def home():
+    return redirect("/timer/17:00")
     with open("config.json") as f:
         data = json.load(f)
     user_agent = request.user_agent.string
     if 'Mobile' in user_agent or 'Tablet' in user_agent:
         print("mobile")
     else:
+        
         return render_template("home.html")
 @application.errorhandler(404)
 def not_found(e):
