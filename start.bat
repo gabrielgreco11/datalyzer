@@ -1,8 +1,9 @@
 @echo off
-start /B python main.py
+start /B python main.py > log.txt
 :a
 git fetch
 git pull
+
 :loop
 timeout /t 1 /nobreak > NULL
 if exist "restart" (
