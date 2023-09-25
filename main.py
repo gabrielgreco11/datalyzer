@@ -31,6 +31,10 @@ def not_found(e):
 def rick_role():
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 
+@application.route("/git")
+def github():
+    return redirect("https://github.com/gabrielgreco11/datalyzer")
+
 
 @application.route("/timer/<date>")
 def timer(date):
