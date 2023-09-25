@@ -1,1 +1,10 @@
-custom: ['tbz.ch', 'opten.ch','ase.ch']
+# GitHub Funding Configuration
+
+# Individual Sponsors
+github: NicoM77
+
+# Custom Sponsorship Links
+custom:
+  - tbz.ch
+  - opten.ch
+  - ase.ch
