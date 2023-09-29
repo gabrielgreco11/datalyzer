@@ -1,0 +1,111 @@
+.welcome{
+    background-color: rgb(242, 242, 242);
+    padding-top: 1%;
+    padding-left: 150px;
+    font-size: 34pt;
+    color:rgb(28, 28, 28);
+    font-family: 'Lato', sans-serif;
+    padding-bottom: 10px;
+}
+.empty{
+    height: 15%;
+}
+
+.welcome-text{
+    margin-top: -10px;
+    padding-top: -10px;
+}
+.image{
+    width: 80%;
+    max-width: 900px;
+}
+.anmelden{
+    margin-top: -50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: white;
+    padding-left: 150px;
+    font-size: 34pt;
+    height: 500px;
+    color:rgb(28, 28, 28);
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.anmeldung-text{
+  text-align: center;
+    margin-top: -10px;
+    padding-top: -30px;
+    font-family: 'Lato', sans-serif;
+    font-weight:bold;
+    color: rgb(34, 110, 147);
+}
+.antwortDiv{
+  background: none;
+  display: block;
+  text-align: center;
+  font-size: 50%;
+}
+
+.box h1{
+    color: rgb(0, 0, 0);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+.box input[type = "text"],.box input[type = "email"]{
+    border:0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 14px 10px;
+    width: 80%;
+    outline: none;
+    color: rgb(0, 0, 0);
+    border-radius: 24px;
+    transition: 0.25s;
+  }
+.box input[type = "text"]:focus,.box input[type = "email"]:focus{
+    width: 90%;
+    background: white;
+    border-color: #2ecc71;
+  }
+.box input[type = "submit"]{
+    border:0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 40px;
+    outline: none;
+    color: rgb(0, 0, 0);
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+  }
+  .box input[type = "submit"]:hover{
+    background: #2ecc71;
+  }
+
+.left_div {
+  flex-basis: 70%;
+  max-width: 100%; /* Setzt die maximale Breite des Bildes auf 100% des Containers */
+  object-fit: contain;
+  width: clamp(1rem, 1vw, 5rem);
+  height: auto; /* Setzt die maximale Breite des Bildes auf 100% des Containers */
+  max-height: 500px; /* Setzt die maximale Höhe des Bildes auf 100% des Containers */ /* Legt die Art und Weise fest, wie das Bild im Container angezeigt wird */
+  padding-bottom: 2px;
+}
+.left_div img{
+  text-align: left;
+  
+}
+
+
+.right_div {
+  flex-basis: 30%;
+}
+
