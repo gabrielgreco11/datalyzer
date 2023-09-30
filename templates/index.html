@@ -14,7 +14,7 @@
         <div class="max-w flex flex-wrap items-center justify-between mx-auto p-4">
 
 
-            <h1 class="justify-start text-3xl font-bold hover:scale-105"
+            <h1 class="justify-start text-3xl font-bold hover:scale-105 animate"
                 style="background: linear-gradient(to bottom right, rgb(238, 7, 7), rgb(167, 124, 44)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                 <a href="index.html">Datalyzer</a>
 
@@ -26,7 +26,7 @@
 
                     <li>
                         <a href="charts.html"
-                            class="block py-2 pl-3 pr-4 text-white rounded p-0 hover:scale-105">Charts</a>
+                            class="block py-2 pl-3 pr-4 text-white rounded p-0 hover:scale-105">Statistics</a>
                     </li>
                     <li>
                         <a href="#" class="block py-2 pl-3 pr-4 text-white rounded p-0 hover:scale-105">Monitoring</a>
@@ -39,7 +39,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="lg:hidden flex items-center">
+            <div class="lg:hidden flex items-center"> <!-- Hamburger icon for mobile view-->
                 <button class="outline-none mobile-menu-button">
                     <svg class=" w-6 h-6 text-gray-500 hover:scale-110" x-show="!showMenu" fill="none"
                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
@@ -56,7 +56,7 @@
         <div class="hidden mobile-menu bg-black">
             <ul class="">
                 <li><a href="charts.html"
-                        class="block text-sm px-2 py-4 text-white hover:bg-neutral-700 transition duration-300">Charts</a>
+                        class="block text-sm px-2 py-4 text-white hover:bg-neutral-700 transition duration-300">Statistics</a>
                 </li>
                 <li><a href="#about"
                         class="block text-sm px-2 py-4 text-white hover:bg-neutral-700 transition duration-300">Monitoring</a>
@@ -94,14 +94,14 @@
         </h1>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4"><!--first card -->
         <div class="rounded p-2 my-4 mx-2 md:mx-4 lg:mx-6 flex justify-center overflow-hidden shadow-lg"
             style="background: rgb(255, 0, 0);">
             <div class="px-6 py-4">
                 <p class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-red-600 mr-2 mb-2">
-                    Youtube<img src="/images/youtube.png" height="24px" width="24px">
+                    Youtube <img class="inline" src="/images/youtube.png" height="36px" width="36px">
                 </p>
-                <p class="text-black text-base p-2">
+                <p class="text-white text-base p-2">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et
                     perferendis eaque, exercitationem praesentium nihil.
                 </p>
@@ -109,7 +109,7 @@
                     <button
                         class="select-none rounded-lg bg-white py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-red-600 shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                         type="button" data-ripple-light="true">
-                        Go to Stats
+                        Go to full Stats
                     </button>
                 </a>
             </div>
@@ -117,14 +117,23 @@
         </div>
 
         <div class="rounded p-2 my-4 mx-2 md:mx-4 lg:mx-6 flex justify-center overflow-hidden shadow-lg"
-        >
+        style="background-color: red;">
             <div class="px-6 py-4">
-                <span
-                    class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Youtube</span>
-                <p class="text-black text-base">
+                <p class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-red-600 mr-2 mb-2">
+                    Youtube <img class="inline" src="/images/youtube.png" height="36px" width="36px">
+                </p>
+                  
+                <p class="text-white text-base p-2">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et
                     perferendis eaque, exercitationem praesentium nihil.
                 </p>
+                <a href="charts.html">
+                    <button
+                        class="select-none rounded-lg bg-white py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-red-600 shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        type="button" data-ripple-light="true">
+                        Go to full Stats
+                    </button>
+                </a>
             </div>
 
         </div>
