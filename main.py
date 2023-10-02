@@ -20,7 +20,6 @@ def home():
     else:
 
         return render_template("home.html")"""
-
 @application.route("/")
 def home():
     folder_path = "output/"
@@ -32,6 +31,7 @@ def home():
         file_name = "".join(file_name.split(".json")[0:])
         with open(x) as f:
             data[file_name] = json.load(f)
+    return data
     #### Sort nach Views ###
     view_list = []
     views = {}
@@ -43,7 +43,8 @@ def home():
                 except KeyError:
                     continue
     view_list.sort()
-    """for x in view_list:
+    
+"""for x in view_list:
         for days in data.keys():
             for hours in days.keys():
                 for user in hours.keys():
@@ -52,11 +53,11 @@ def home():
                             print("EXIT")
                     except KeyError:
                         continue"""
-    return view_list
+    
 
-
-
-    return data
+@application.route("/base")
+def base_test():
+    return render_template("base.html")
 @application.errorhandler(404)
 def not_found(e):
     return render_template("404.html")
@@ -69,6 +70,10 @@ def rick_role():
 @application.route("/git")
 def github():
     return redirect("https://github.com/gabrielgreco11/datalyzer")
+
+@application.route("/rede")
+def easteregg():
+    return redirect("https://www.youtube.com/watch?v=FJ3N_2r6R-o")
 
 
 @application.route("/timer/<date>")
@@ -92,21 +97,6 @@ def scrapper_show():
     with open(f"output/{datetime.datetime.now().strftime('%d_%m')}.json") as f:
         data = json.load(f)
     return data
-
-
-@application.route("/log")
-def log_show():
-    file_content = ""
-    try:
-        with open("log.txt", 'r', encoding='utf-8') as file:
-            for line in file:
-                line = line.strip()
-                file_content = file_content + f" {line}<br>"
-    except FileNotFoundError:
-        return "Die Datei wurde nicht gefunden."
-
-    file_content.replace("\n", "<br>")
-    return file_content
 
 
 if __name__ == "__main__":
