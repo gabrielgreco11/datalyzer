@@ -32,7 +32,30 @@ def home():
         file_name = "".join(file_name.split(".json")[0:])
         with open(x) as f:
             data[file_name] = json.load(f)
-    
+    #### Sort nach Views ###
+    view_list = []
+    views = {}
+    for days in data.keys():
+        for hours in data[days].keys():
+            for user in data[days][hours].keys():
+                try:
+                    view_list.append(user["views"])
+                except KeyError:
+                    continue
+    view_list.sort()
+    """for x in view_list:
+        for days in data.keys():
+            for hours in days.keys():
+                for user in hours.keys():
+                    try:
+                        if x == user["views"]
+                            print("EXIT")
+                    except KeyError:
+                        continue"""
+    return view_list
+
+
+
     return data
 @application.errorhandler(404)
 def not_found(e):
