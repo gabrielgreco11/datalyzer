@@ -1,9 +1,10 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} 
 {% block content%}
 <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/output.css') }}">
+
 <div class="grid grid-cols-1 lg:grid-cols-2 p-6 lg:px-36 py-12">
     <div>
-        <h1 class="text-3xl font-semibold text-center">
+        <h1 class="text-5xl font-semibold text-center">
             Finde deine lieblings Influencer
             hier auf <span class=""
                 style="background: linear-gradient(to bottom right, rgb(238, 7, 7), rgb(167, 124, 44)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Datalyzer.ch</span>
@@ -20,33 +21,25 @@
         <div class="p-4">
             <div class="grid grid-cols-2 bg-gray-200 rounded-md my-1 p-1.5 w-full">
                 <div class="text-sm font-semibold text-red-600">
-                    Youtube <img class="inline" src="../images/youtube.png" height="36px" width="36px">
+                    Youtube <img class="inline" src="https://datalyzer.ch/static/image/youtube.png" height="36px" width="36px">
 
                 </div>
                 <div class="flex self-center justify-self-end font-semibold text-red-600">Ø likes</div>
             </div>
             <div class="justify-between bg-white rounded-md">
+                {% for x in ["1","2", "3"] %}
                 <div class="grid grid-cols-3 gap-2">
-                    <div class="p-2 font-bold" style="color: rgb(228, 195, 113); ">#1</div><!--rang-->
-                    <div class="p-2">Streamer</div> <!--youtuber name-->
-                    <div class="p-2 justify-self-end"> likes</div> <!--view/likes/abos-->
+                    <div class="p-2 font-bold" style="color: rgb(74, 74, 74); ">#{{ x }}</div><!--rang-->
+                    <div class="p-2">{{ data["likes"][x]["url"] }}</div> <!--youtuber name-->
+                    <div class="p-2 justify-self-end">{{data["likes"][x]["likes"]}}</div> <!--view/likes/abos-->
                 </div>
-                <div class="grid grid-cols-3 gap-2">
-                    <div class="p-2 font-bold" style="color: rgb(192, 192, 192); ">#2</div><!--rang-->
-                    <div class="p-2">Streamer</div> <!--youtuber name-->
-                    <div class="p-2 justify-self-end"> likes</div> <!--view/likes/abos-->
-                </div>
-                <div class="grid grid-cols-3 gap-2">
-                    <div class="p-2 font-bold" style="color: rgb(140, 120, 83); ">#3</div><!--rang-->
-                    <div class="p-2">Streamer</div> <!--youtuber name-->
-                    <div class="p-2 justify-self-end"> likes</div> <!--view/likes/abos-->
-                </div>
+                {% endfor %}
 
             </div>
 
-            <a href="charts.html">
+            <a class="flex justify-center" href="charts.html">
                 <button
-                    class="select-none rounded-lg bg-white py-3 px-6 my-2 text-center align-bottom font-sans text-xs font-bold uppercase text-red-600 shadow-md "
+                    class=" flex select-none rounded-lg bg-white py-3 px-6 my-2 text-center items-center align-bottom font-sans text-xs font-bold uppercase text-red-600 shadow-md "
                     type="button" data-ripple-light="true">
                     Go to full Stats
                 </button>
@@ -59,7 +52,7 @@
         <div class="p-4">
             <div class="grid grid-cols-2 bg-gray-200 rounded-md my-1 p-1.5 w-full">
                 <div class="text-sm font-semibold text-red-600">
-                    Youtube <img class="inline" src="../images/youtube.png" height="36px" width="36px">
+                    Youtube <img class="inline" src="https://datalyzer.ch/static/image/youtube.png" height="36px" width="36px">
 
                 </div>
                 <div class="flex self-center font-semibold justify-self-end  text-red-600">Subscriber</div>
@@ -83,7 +76,7 @@
 
             </div>
 
-            <a href="charts.html">
+            <a class="flex justify-center" href="charts.html">
                 <button
                     class="select-none rounded-lg bg-white py-3 px-6 my-2 text-center align-bottom font-sans text-xs font-bold uppercase text-red-600 shadow-md "
                     type="button" data-ripple-light="true">
@@ -98,7 +91,7 @@
         <div class="p-4">
             <div class="grid grid-cols-2 bg-gray-200 rounded-md my-1 p-1.5 w-full">
                 <div class="text-sm font-semibold text-red-600">
-                    Youtube <img class="inline" src="../images/youtube.png" height="36px" width="36px">
+                    Youtube <img class="inline" src="https://datalyzer.ch/static/image/youtube.png" height="36px" width="36px">
 
                 </div>
                 <div class="flex self-center font-semibold justify-self-end text-red-600">Ø views</div>
@@ -122,7 +115,7 @@
 
             </div>
 
-            <a href="charts.html">
+            <a class="flex justify-center" href="charts.html">
                 <button
                     class="select-none rounded-lg bg-white py-3 px-6 my-2 text-center align-bottom font-sans text-xs font-bold uppercase text-red-600 shadow-md "
                     type="button" data-ripple-light="true">
@@ -143,7 +136,7 @@
             background: -webkit-linear-gradient(#e4a41a, #c30ffa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;">
-                    Instagram <img class="inline" src="../images/instagram.png" height="32px" width="32px">
+                    Instagram <img class="inline" src="https://datalyzer.ch/static/image/instagram.png" height="32px" width="32px">
 
                 </div>
                 <div class="flex self-center font-semibold justify-self-end" style="
@@ -170,7 +163,7 @@
 
             </div>
 
-            <a href="charts.html">
+            <a class=" flex justify-center" href="charts.html">
                 <button
                     class="select-none rounded-lg bg-white py-3 px-6 my-2 text-center align-bottom font-sans text-xs font-bold uppercase text-orange-500 shadow-md "
                     type="button" data-ripple-light="true">

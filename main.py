@@ -8,16 +8,27 @@ import scrapper
 application = Flask(__name__)
 application.secret_key = "vS44D3LML9gi0vu1SAsjYePZ5TM6ecVyjgJcgZeMNVXS6HBkiy"
 
-def scrapper_formater():
+def scrapper_formater(date):
     folder_path = "output/"
-    file_list = os.listdir(folder_path)
-    files = [os.path.join(folder_path, file) for file in file_list if os.path.isfile(os.path.join(folder_path, file))]
-    data = {}
-    for x in files:
-        file_name = "".join(x.split(folder_path)[1:])
-        file_name = "".join(file_name.split(".json")[0:])
-        with open(x) as f:
-            data[file_name] = json.load(f)
+    if date == "last": 
+        file_name = folder_path + datetime.datetime.now().strftime('%d_%m') + ".json"
+        data = {}
+        try:
+            with open(file_name) as f:
+                data[datetime.datetime.now().strftime('%d_%m')] = json.load(f)
+            
+        except FileNotFoundError:
+            scrapper.Web()
+            return "Heute wurde noch keine Daten gescapt. Es wurde gerade gestartet. versuche es in 5min erneut"
+    else:
+        file_list = os.listdir(folder_path)
+        files = [os.path.join(folder_path, file) for file in file_list if os.path.isfile(os.path.join(folder_path, file))]
+        data = {}
+        for x in files:
+            file_name = "".join(x.split(folder_path)[1:])
+            file_name = "".join(file_name.split(".json")[0:])
+            with open(x) as f:
+                data[file_name] = json.load(f)
 
     categorys = {}
     for category in ["views","likes","subs"]:
@@ -45,9 +56,7 @@ def scrapper_formater():
 
 @application.route("/")
 def home():
-    
-    data= scrapper_formater()
-    return render_template("chart_frontpage.html")
+    return render_template("chart_frontpage.html", data =scrapper_formater("last"))
 
     
 
