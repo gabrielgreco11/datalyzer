@@ -591,6 +591,10 @@ video {
   display: none;
 }
 
+.h-48 {
+  height: 12rem;
+}
+
 .h-56 {
   height: 14rem;
 }
