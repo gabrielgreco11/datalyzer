@@ -1,6 +1,7 @@
 @echo off
-start /B python main.py > log.txt
-start /B python scrapper.py > log.txt
+start /B py scrapper.py
+start /B py main.py > log.txt
+
 :a
 git fetch
 git pull
