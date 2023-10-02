@@ -102,5 +102,4 @@ def scrapper_show():
 if __name__ == "__main__":
     """with open("config.json") as f:
         data = json.load(f)"""
-    # scrapper()
     application.run(host="0.0.0.0", debug=True, port=5000)

@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 from flask import Flask, render_template , request,url_for, redirect, session, send_file,jsonify
-import json, requests, datetime, os
+import json, requests, datetime, os, time
 
 def clean_numb( input_str):
     num = input_str
@@ -224,3 +224,11 @@ def setup( ):
 
     return api_key, country_codes
 
+def timer():
+    while True:
+        Web()
+        time.sleep(3600)
+
+if __name__ == "__main__":
+    timer()
+        
