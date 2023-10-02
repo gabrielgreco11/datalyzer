@@ -56,6 +56,7 @@ def scrapper_formater(date):
 
 @application.route("/")
 def home():
+    return scrapper_formater("")
     return render_template("chart_frontpage.html", data =scrapper_formater("last"))
 
     
