@@ -9,17 +9,6 @@ application = Flask(__name__)
 application.secret_key = "vS44D3LML9gi0vu1SAsjYePZ5TM6ecVyjgJcgZeMNVXS6HBkiy"
 
 
-"""@application.route("/")
-def home():
-    return redirect("/timer/17:00")
-    with open("config.json") as f:
-        data = json.load(f)
-    user_agent = request.user_agent.string
-    if 'Mobile' in user_agent or 'Tablet' in user_agent:
-        print("mobile")
-    else:
-
-        return render_template("home.html")"""
 @application.route("/")
 def home():
     folder_path = "output/"
@@ -31,28 +20,32 @@ def home():
         file_name = "".join(file_name.split(".json")[0:])
         with open(x) as f:
             data[file_name] = json.load(f)
-    return data
-    #### Sort nach Views ###
-    view_list = []
-    views = {}
-    for days in data.keys():
-        for hours in data[days].keys():
-            for user in data[days][hours].keys():
-                try:
-                    view_list.append(user["views"])
-                except KeyError:
-                    continue
-    view_list.sort()
-    
-"""for x in view_list:
+
+    # Sortierung der views in absteigender Reihenfolge
+    categorys = {}
+    for category in ["views","likes","subs"]:
+        categorys[category] ={"list":[]}
         for days in data.keys():
-            for hours in days.keys():
-                for user in hours.keys():
+            for hours in data[days].keys():
+                for user in data[days][hours].keys():
                     try:
-                        if x == user["views"]
-                            print("EXIT")
+                        categorys[category]["list"].append(data[days][hours][user][category])
                     except KeyError:
-                        continue"""
+                        continue
+        categorys[category]["list"].sort(reverse=True)
+        for x in categorys[category]["list"]:
+            for days in data.keys():
+                for hours in data[days].keys():
+                    for user in data[days][hours].keys():
+                        try:
+                            if x == data[days][hours][user][category]:
+                                categorys[category][str(categorys[category]["list"].index(x) + 1)] = data[days][hours][user]
+                        except KeyError:
+                            continue
+                        except ValueError:
+                            continue
+    return categorys
+
     
 
 @application.route("/base")
@@ -100,6 +93,4 @@ def scrapper_show():
 
 
 if __name__ == "__main__":
-    """with open("config.json") as f:
-        data = json.load(f)"""
     application.run(host="0.0.0.0", debug=True, port=5000)
