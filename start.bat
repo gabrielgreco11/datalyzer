@@ -1,8 +1,12 @@
 @echo off
-start /B python main.py > log.txt
+
+
 :a
 git fetch
 git pull
+
+start /B py scrapper.py
+start /B py main.py > log.txt
 
 :loop
 timeout /t 1 /nobreak > NULL
