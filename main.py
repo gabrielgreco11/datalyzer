@@ -92,6 +92,10 @@ def scrapper_start():
 def scrapper_show():
    return scrapper_formater()
 
+@application.route("/static/image/<img>")
+def img(img):
+    return send_file(f"images/{img}")
+
 
 if __name__ == "__main__":
     application.run(host="0.0.0.0", debug=True, port=5000)
