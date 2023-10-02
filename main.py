@@ -8,9 +8,7 @@ import scrapper
 application = Flask(__name__)
 application.secret_key = "vS44D3LML9gi0vu1SAsjYePZ5TM6ecVyjgJcgZeMNVXS6HBkiy"
 
-
-@application.route("/")
-def home():
+def scrapper_formater():
     folder_path = "output/"
     file_list = os.listdir(folder_path)
     files = [os.path.join(folder_path, file) for file in file_list if os.path.isfile(os.path.join(folder_path, file))]
@@ -21,7 +19,6 @@ def home():
         with open(x) as f:
             data[file_name] = json.load(f)
 
-    # Sortierung der views in absteigender Reihenfolge
     categorys = {}
     for category in ["views","likes","subs"]:
         categorys[category] ={"list":[]}
@@ -45,6 +42,12 @@ def home():
                         except ValueError:
                             continue
     return categorys
+
+@application.route("/")
+def home():
+    
+    data= scrapper_formater()
+    return render_template("chart_frontpage.html")
 
     
 
@@ -80,16 +83,14 @@ def restart():
     return "Erfolgreich Gestartet"
 
 
-@application.route("/scrapper")
+@application.route("/scraper")
 def scrapper_start():
     return scrapper.Web()
 
 
-@application.route("/scrapper/show")
+@application.route("/scraper/show")
 def scrapper_show():
-    with open(f"output/{datetime.datetime.now().strftime('%d_%m')}.json") as f:
-        data = json.load(f)
-    return data
+   return scrapper_formater()
 
 
 if __name__ == "__main__":
