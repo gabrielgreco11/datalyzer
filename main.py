@@ -7,7 +7,6 @@ import scrapper
 
 application = Flask(__name__)
 application.secret_key = "vS44D3LML9gi0vu1SAsjYePZ5TM6ecVyjgJcgZeMNVXS6HBkiy"
-
 def scrapper_formater(date):
     folder_path = "output/"
     if date == "last": 
@@ -19,7 +18,7 @@ def scrapper_formater(date):
             
         except FileNotFoundError:
             scrapper.Web()
-            return "Heute wurde noch keine Daten gescapt. Es wurde gerade gestartet. versuche es in 5min erneut"
+            return "Heute wurde noch keine Daten gescapt. Es wurde gerade gestartet. Versuche es in 5 Minuten erneut"
     else:
         file_list = os.listdir(folder_path)
         files = [os.path.join(folder_path, file) for file in file_list if os.path.isfile(os.path.join(folder_path, file))]
@@ -29,30 +28,138 @@ def scrapper_formater(date):
             file_name = "".join(file_name.split(".json")[0:])
             with open(x) as f:
                 data[file_name] = json.load(f)
+    
 
-    categorys = {}
-    for category in ["views","likes","subs"]:
-        categorys[category] ={"list":[]}
-        for days in data.keys():
-            for hours in data[days].keys():
-                for user in data[days][hours].keys():
-                    try:
-                        categorys[category]["list"].append(data[days][hours][user][category])
-                    except KeyError:
-                        continue
-        categorys[category]["list"].sort(reverse=True)
-        for x in categorys[category]["list"]:
-            for days in data.keys():
-                for hours in data[days].keys():
-                    for user in data[days][hours].keys():
+    finall_data = {"average":{}}
+
+    for day in data.keys():
+
+        ##### sort 
+        sorted_likes_data = {hour: sort_channels_by_likes(data[day][hour]) for hour in data[day].keys()}
+        sorted_views_data = {hour: sort_channels_by_views(data[day][hour]) for hour in data[day].keys()}
+        sorted_subs_data = {hour: sort_channels_by_subs(data[day][hour]) for hour in data[day].keys()}
+        
+        finall_data[day] = {
+            "likes": sorted_likes_data,
+            "views": sorted_views_data,
+            "subs": sorted_subs_data
+        }
+
+
+        # average day
+        finall_data[day]["average_day"] = {}
+        for hour in data[day].keys():
+            
+            for channel in data[day][hour].keys():
+                try:
+                    finall_data[day]["average_day"][channel]
+                except KeyError:
+                    finall_data[day]["average_day"][channel] = {
+                        "likes": [],
+                        "subs": [],
+                        "views": []
+                    }
+                for which in data[day][hour][channel].keys():
+                    if which == "url":
+                        finall_data[day]["average_day"][channel]["url"] = data[day][hour][channel][which]
+                    else:
+                        finall_data[day]["average_day"][channel][which].append(data[day][hour][channel][which])
+
+        keys_to_remove = []
+
+        for channel in finall_data[day]["average_day"].keys():
+            for which in finall_data[day]["average_day"][channel].keys():
+                if not which == "url":
+                    if finall_data[day]["average_day"][channel][which] == []:
+                        keys_to_remove.append((channel, which))
+                    else:
+                        finall_data[day]["average_day"][channel][which] = int(sum(finall_data[day]["average_day"][channel][which]) / len(finall_data[day]["average_day"][channel][which]))
+                        
                         try:
-                            if x == data[days][hours][user][category]:
-                                categorys[category][str(categorys[category]["list"].index(x) + 1)] = data[days][hours][user]
+                            finall_data["average"][channel]
                         except KeyError:
-                            continue
-                        except ValueError:
-                            continue
-    return categorys
+                            finall_data["average"][channel] = {
+                                "likes": [],
+                                "subs": [],
+                                "views": []
+                            }
+                        finall_data["average"][channel][which].append(finall_data[day]["average_day"][channel][which])
+        for channel, which in keys_to_remove:
+            finall_data[day]["average_day"][channel].pop(which)
+
+    # average
+    keys_to_remove = []
+   
+    for channel in finall_data["average"].keys():
+            for which in finall_data["average"][channel].keys():
+                if not which == "url":
+                    if finall_data["average"][channel][which] == []:
+                        keys_to_remove.append((channel, which))
+                    else:
+                        finall_data["average"][channel][which] = int(sum(finall_data["average"][channel][which]) / len(finall_data["average"][channel][which]))
+
+    for channel, which in keys_to_remove:
+        finall_data["average"][channel].pop(which)    
+
+    #######  clean Numbers
+
+    iteams_to_modify = []
+    iteams_to_modify_average_day= []
+    iteams_to_modify_average= []
+
+    for day in finall_data.keys():
+        if not "average" in day:
+            for tags in finall_data[day].keys():
+                if not "average" in tags:
+                    for hours in finall_data[day][tags].keys():
+                        for channel in finall_data[day][tags][str(hours)].keys():
+                            for which in finall_data[day][tags][str(hours)][channel].keys():
+                                if not which == "url"   :
+                                    iteams_to_modify.append((day, tags, str(hours), channel, which))
+                else:
+                    for channel in finall_data[day][tags].keys():
+                            for which in finall_data[day][tags][channel].keys():
+                                if not which == "url"   :
+                                    iteams_to_modify_average_day.append((day, tags, channel, which))
+        else:
+            for channel in finall_data[day]:
+                for which in finall_data[day][channel].keys():
+                    if not which == "url":
+                        iteams_to_modify_average.append((day, channel, which))
+    
+    for day, tags, hours, channel, which in iteams_to_modify:
+        finall_data[day][tags][str(hours)][channel][f"{which}_clean"] =clean_nummber(numb=finall_data[day][tags][str(hours)][channel][which])
+
+    for day, tags, channel, which in iteams_to_modify_average_day:
+        finall_data[day][tags][channel][f"{which}_clean"] =clean_nummber(numb=finall_data[day][tags][channel][which])
+
+    for day, channel, which in iteams_to_modify_average:
+        finall_data[day][channel][f"{which}_clean"] = clean_nummber(numb=finall_data[day][channel][which])
+
+
+
+    
+    return finall_data
+
+def clean_nummber(numb):
+    if len(str(numb)) > 7:
+        return f"{round(numb / 10000000,1)} Mio"
+    elif len(str(numb)) > 6:
+        return f"{round(numb / 1000000,1)} K"
+
+def sort_channels_by_likes(data):
+    sorted_channels = sorted(data.items(), key=lambda x: x[1].get('likes', 0), reverse=True)
+    return dict(sorted_channels)
+
+def sort_channels_by_views(data):
+    sorted_channels = sorted(data.items(), key=lambda x: x[1].get('views', 0), reverse=True)
+    return dict(sorted_channels)
+
+def sort_channels_by_subs(data):
+    sorted_channels = sorted(data.items(), key=lambda x: x[1].get('subs', 0), reverse=True)
+    return dict(sorted_channels)
+
+
 
 @application.route("/")
 def home():
@@ -99,7 +206,7 @@ def scrapper_start():
 
 @application.route("/scraper/show")
 def scrapper_show():
-   return scrapper_formater()
+   return scrapper_formater("")
 
 @application.route("/static/image/<img>")
 def img(img):
@@ -108,3 +215,4 @@ def img(img):
 
 if __name__ == "__main__":
     application.run(host="0.0.0.0", debug=True, port=5000)
+ 
