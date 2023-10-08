@@ -164,6 +164,9 @@ def sort_channels_by_subs(data):
 @application.route("/")
 def home():
     return render_template("index.html")
+@application.route("/template/<html>")
+def render_test(html):
+    return render_template(f"{html}.html")
 
     
 
