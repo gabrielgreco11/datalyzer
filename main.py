@@ -7,39 +7,32 @@ import scrapper
 
 application = Flask(__name__)
 application.secret_key = "vS44D3LML9gi0vu1SAsjYePZ5TM6ecVyjgJcgZeMNVXS6HBkiy"
-def scrapper_formater(date):
+def scrapper_formater():
     folder_path = "output/"
-    if date == "last": 
-        file_name = folder_path + datetime.datetime.now().strftime('%d_%m') + ".json"
-        data = {}
-        try:
-            with open(file_name) as f:
-                data[datetime.datetime.now().strftime('%d_%m')] = json.load(f)
-            
-        except FileNotFoundError:
-            scrapper.Web()
-            return "Heute wurde noch keine Daten gescapt. Es wurde gerade gestartet. Versuche es in 5 Minuten erneut"
-    else:
-        file_list = os.listdir(folder_path)
-        files = [os.path.join(folder_path, file) for file in file_list if os.path.isfile(os.path.join(folder_path, file))]
-        data = {}
-        for x in files:
-            file_name = "".join(x.split(folder_path)[1:])
-            file_name = "".join(file_name.split(".json")[0:])
-            with open(x) as f:
-                data[file_name] = json.load(f)
-    
-
-    finall_data = {"average":{}}
+    file_list = os.listdir(folder_path)
+    files = [os.path.join(folder_path, file) for file in file_list if os.path.isfile(os.path.join(folder_path, file))]
+    data = {}
+    for x in files:
+        file_name = "".join(x.split(folder_path)[1:])
+        file_name = "".join(file_name.split(".json")[0:])
+        with open(x) as f:
+            data[file_name] = json.load(f)
+    finall_data = {
+        "average":{}
+        }
 
     for day in data.keys():
-
+        finall_data[day] = {
+            "config":{
+            }
+        }
+        day_data = {}
         ##### sort 
         sorted_likes_data = {hour: sort_channels_by_likes(data[day][hour]) for hour in data[day].keys()}
         sorted_views_data = {hour: sort_channels_by_views(data[day][hour]) for hour in data[day].keys()}
         sorted_subs_data = {hour: sort_channels_by_subs(data[day][hour]) for hour in data[day].keys()}
         
-        finall_data[day] = {
+        day_data[day] = {
             "likes": sorted_likes_data,
             "views": sorted_views_data,
             "subs": sorted_subs_data
@@ -47,6 +40,7 @@ def scrapper_formater(date):
 
 
         # average day
+       
         finall_data[day]["average_day"] = {}
         for hour in data[day].keys():
             
@@ -64,32 +58,57 @@ def scrapper_formater(date):
                         finall_data[day]["average_day"][channel]["url"] = data[day][hour][channel][which]
                     else:
                         finall_data[day]["average_day"][channel][which].append(data[day][hour][channel][which])
-
+        
         keys_to_remove = []
+        sorted_likes_data = sort_channels_by_likes(finall_data[day]["average_day"])
+        sorted_views_data = sort_channels_by_views(finall_data[day]["average_day"])
+        sorted_subs_data =  sort_channels_by_subs(finall_data[day]["average_day"])
+        
+        for y in [sorted_likes_data, sorted_views_data, sorted_subs_data]:
+            to_modify = []
+            for x in y:
+                if x == "":
+                    to_modify.append((x, y[x]["url"].replace("/","").replace("-"," "), y[x]))
+            for x_old, x, x_data in to_modify:
+                y.pop(x_old)
+                y[x] =x_data
 
-        for channel in finall_data[day]["average_day"].keys():
-            for which in finall_data[day]["average_day"][channel].keys():
-                if not which == "url":
-                    if finall_data[day]["average_day"][channel][which] == []:
-                        keys_to_remove.append((channel, which))
-                    else:
-                        finall_data[day]["average_day"][channel][which] = int(sum(finall_data[day]["average_day"][channel][which]) / len(finall_data[day]["average_day"][channel][which]))
-                        
-                        try:
-                            finall_data["average"][channel]
-                        except KeyError:
-                            finall_data["average"][channel] = {
-                                "likes": [],
-                                "subs": [],
-                                "views": []
-                            }
-                        finall_data["average"][channel][which].append(finall_data[day]["average_day"][channel][which])
-        for channel, which in keys_to_remove:
-            finall_data[day]["average_day"][channel].pop(which)
 
+        finall_data[day]["average_day"] = {
+            "likes": sorted_likes_data,
+            "views": sorted_views_data,
+            "subs": sorted_subs_data
+        }
+        for who in finall_data[day]["average_day"].keys():
+            for channel in finall_data[day]["average_day"][who].keys():
+                for which in finall_data[day]["average_day"][who][channel].keys():
+                    if not which == "url":
+                        if finall_data[day]["average_day"][who][channel][which] == []:
+                            keys_to_remove.append((who, channel, which))
+                        else:
+                            try:
+                                zahl = (sum(finall_data[day]["average_day"][who][channel][which]) / len(finall_data[day]["average_day"][who][channel][which]))
+                                zahl = int(zahl)
+                                finall_data[day]["average_day"][who][channel][which] = zahl
+                                try:
+                                    finall_data["average"][channel]
+                                except KeyError:
+                                    finall_data["average"][channel] = {
+                                        "likes": [],
+                                        "subs": [],
+                                        "views": []
+                                    }
+                                finall_data["average"][channel][which].append(finall_data[day]["average_day"][who][channel][which])
+                            except TypeError:
+                                continue
+
+        for who, channel, which in keys_to_remove:
+            try:
+                finall_data[day]["average_day"][who][channel].pop(which)
+            except KeyError:
+                continue
     # average
     keys_to_remove = []
-   
     for channel in finall_data["average"].keys():
             for which in finall_data["average"][channel].keys():
                 if not which == "url":
@@ -103,35 +122,32 @@ def scrapper_formater(date):
 
     #######  clean Numbers
 
-    iteams_to_modify = []
     iteams_to_modify_average_day= []
     iteams_to_modify_average= []
 
     for day in finall_data.keys():
         if not "average" in day:
             for tags in finall_data[day].keys():
-                if not "average" in tags:
-                    for hours in finall_data[day][tags].keys():
-                        for channel in finall_data[day][tags][str(hours)].keys():
-                            for which in finall_data[day][tags][str(hours)][channel].keys():
-                                if not which == "url"   :
-                                    iteams_to_modify.append((day, tags, str(hours), channel, which))
-                else:
-                    for channel in finall_data[day][tags].keys():
-                            for which in finall_data[day][tags][channel].keys():
-                                if not which == "url"   :
-                                    iteams_to_modify_average_day.append((day, tags, channel, which))
+                if  "average" in tags:
+                    for who in finall_data[day][tags].keys():
+                        for channel in finall_data[day][tags][who].keys():
+                                for which in finall_data[day][tags][who][channel].keys():
+                                    if not which == "url"   :
+                                        iteams_to_modify_average_day.append((day, tags, who ,channel, which))
         else:
             for channel in finall_data[day]:
                 for which in finall_data[day][channel].keys():
                     if not which == "url":
                         iteams_to_modify_average.append((day, channel, which))
     
-    for day, tags, hours, channel, which in iteams_to_modify:
-        finall_data[day][tags][str(hours)][channel][f"{which}_clean"] =clean_nummber(numb=finall_data[day][tags][str(hours)][channel][which])
-
-    for day, tags, channel, which in iteams_to_modify_average_day:
-        finall_data[day][tags][channel][f"{which}_clean"] =clean_nummber(numb=finall_data[day][tags][channel][which])
+    for day, tags, who ,channel, which in iteams_to_modify_average_day:
+        try:
+            numb=finall_data[day][tags][who][channel][which]
+            finall_data[day][tags][who][channel][f"{which}_clean"] =clean_nummber(numb=finall_data[day][tags][who][channel][which])
+        except KeyError:
+            print(day, tags, who ,channel, which)
+            return finall_data
+        
 
     for day, channel, which in iteams_to_modify_average:
         finall_data[day][channel][f"{which}_clean"] = clean_nummber(numb=finall_data[day][channel][which])
@@ -146,6 +162,8 @@ def clean_nummber(numb):
         return f"{round(numb / 10000000,1)} Mio"
     elif len(str(numb)) > 6:
         return f"{round(numb / 1000000,1)} K"
+    else:
+        return f"{numb}"
 
 def sort_channels_by_likes(data):
     sorted_channels = sorted(data.items(), key=lambda x: x[1].get('likes', 0), reverse=True)
@@ -163,7 +181,10 @@ def sort_channels_by_subs(data):
 
 @application.route("/")
 def home():
-    return render_template("index.html")
+    data = scrapper_formater()
+    print(data)
+    return render_template("index.html", data = data)
+
 @application.route("/template/<html>")
 def render_test(html):
     return render_template(f"{html}.html")
@@ -209,7 +230,7 @@ def scrapper_start():
 
 @application.route("/scraper/show")
 def scrapper_show():
-   return scrapper_formater("")
+   return scrapper_formater()
 
 @application.route("/static/image/<img>")
 def img(img):

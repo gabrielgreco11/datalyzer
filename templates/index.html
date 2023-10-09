@@ -70,7 +70,7 @@
                 <div class="justify-between bg-white rounded-md">
                     <div class="grid grid-cols-3 gap-2">
                         <div class="p-2 font-bold" style="color: rgb(228, 195, 113); ">#1</div><!--rang-->
-                        <div class="p-2">Streamer</div> <!--youtuber name-->
+                        <div class="p-2">{{ data[data.keys()[0]]["likes"][list(data[data.keys()[0]]["likes"].keys())[0]]["likes"] }}</div> <!--youtuber name-->
                         <div class="p-2 justify-self-end"> likes</div> <!--view/likes/abos-->
                     </div>
                     <div class="grid grid-cols-3 gap-2">
