@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} 
+{% block content%}
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/output.css') }}">  
+{% for settings_key in data.keys()%}
+<div style="margin: 2%;">
+    <div style="font-weight: bold;">{{data[settings_key]["display_title"]}}</div>
+    <input style="width: 400px;" valuetype="{{data[settings_key]['input_type']}}" id="input_{{settings_key}}" value="{{data[settings_key]['value']}}">
+    
+    <button id="submit_button_{{settings_key}}" style="border-style: solid !important;" type="submit"><p style="background-color: gray; border-radius: 5px;">Submit</p></button>
+    {% if data[settings_key]["type"] == "IMG" %}
+        <div style="margin-top: 1%;"><img style="width: 400px;" src="{{data[settings_key]['value']}}" alt="IMG"></div>
+    {% endif %}
+
+    <script>
+        // JavaScript, um den Input-Wert an die API zu senden
+        document.getElementById('submit_button_{{settings_key}}').addEventListener('click', function() {
+            var ogTitleValue = document.getElementById('input_{{settings_key}}').value;
+            fetch('/api/set/{{settings_key}}/' + ogTitleValue, {
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('API-Antwort:', data);
+                alert('API-Antwort:', data);
+            })
+            .catch(error => {
+                console.error('Fehler beim Senden der API-Anfrage:', error);
+                location.reload(true);
+
+            });
+        });
+    </script>
+</div>
+{% endfor %}
+
+{% endblock %}

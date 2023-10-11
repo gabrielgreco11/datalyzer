@@ -1,20 +1,23 @@
 {
+    "og_title": {
+        "value": "Datalyzer.ch",
+        "display_title": "Open Graph Title",
+        "description": "Gibt den Title bei Links an",
+        "type": "Text",
+        "input_type": "text"
+    },
     "og_img": {
-        "value":"https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/591b4730-4d50-4925-a14d-0676b95bfbd5/de0703b-a98dd548-f300-49ec-b4a5-d8b23ab208a0.jpg",
-        "title":"Open Graph IMG",
-        "description":"Gibt das IMG bei Links an",
-        "type":"IMG"
+        "value": "https://editor.analyticsvidhya.com/uploads/57125cover.jpg",
+        "display_title": "Open Graph IMG",
+        "description": "Gibt das IMG bei Links an",
+        "type": "IMG",
+        "input_type": "text"
     },
-    "og_title":{
-        "value":"Datalyzer.ch",
-        "title":"Open Graph Title",
-        "description":"Gibt den Title bei Links an",
-        "type":"Text"
-    },
-    "icon":{
-        "value":"https://cdn-icons-png.flaticon.com/512/893/893220.png",
-        "title":"icon",
-        "description":"Websiten Icon",
-        "type":"IMG"
+    "icon": {
+        "value": "https://cdn-icons-png.flaticon.com/512/893/893220.png",
+        "display_title": "icon",
+        "description": "Websiten Icon",
+        "type": "IMG",
+        "input_type": "text"
     }
 }

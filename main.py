@@ -199,6 +199,12 @@ def scrapper_show():
 def img(img):
     return send_file(f"images/{img}")
 
+@application.route("/settings")
+def settings():
+    with open("config.json") as f:
+        data = json.load(f)
+    return render_template("settings.html",data = data)
+
 @application.route("/api/<what>/<format>")
 def api(what,format):
     with open("config.json") as f:
@@ -210,15 +216,21 @@ def api(what,format):
             daten = data[what]["value"]
     if format in ["json","text"]:
         if format == "text":
-            print(daten)
             return daten
         else:
             return jsonify({what:daten})
 
 
-# @application.route("/api/<what>/<cmd>/<value>")
-# def api_edit(what, cmd, value):
-    
+@application.route("/api/<cmd>/<what>/<value>")
+def api_edit(what, cmd, value):
+    if cmd == "set":
+        with open("config.json") as f:
+            data = json.load(f)
+        if what in data.keys():
+            data[what]["value"] = value
+            with open("config.json", "w") as f:
+                json.dump(data, f, indent=4)
+    return "Erfolgreich"
 
 if __name__ == "__main__":
     application.run(host="0.0.0.0", debug=True, port=5000)
