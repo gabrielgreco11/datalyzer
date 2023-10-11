@@ -115,7 +115,7 @@ def Web():
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
         try:
-            with open(f"{output_dir}/{datetime.datetime.now().strftime('%d_%m')}.json") as f:
+            with open(f"{output_dir}/{datetime.datetime.now().strftime('%y%m%d')}.json") as f:
                 data = json.load(f)
         except FileNotFoundError:
             print("New File")
@@ -123,7 +123,7 @@ def Web():
 
         data[datetime.datetime.now().strftime('%H')] = final
 
-        with open(f"{output_dir}/{datetime.datetime.now().strftime('%d_%m')}.json", "w") as f:
+        with open(f"{output_dir}/{datetime.datetime.now().strftime('%y%m%d')}.json", "w") as f:
                 json.dump(data, f, indent=4)
         return "Erfolgreich"
     except Exception as e:
