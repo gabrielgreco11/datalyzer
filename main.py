@@ -98,7 +98,8 @@ def scrapper_formater():
             else:
                 z = "likes"
             for i, channel in enumerate(x, start=1):
-                if not channel['subs'] == 0:
+                i = f"{i}."
+                if not channel[z] == 0:
                     finall_data[day]["scoreboard"][z][i] = {
                         "name":channel['channel_name'],
                         "url":channel['url']
@@ -137,9 +138,15 @@ def sort_channels_by_subs(data):
 
 
 @application.route("/")
-def home():
+def redirect_home():
     data = scrapper_formater()
-    return render_template("index.html", data = data)
+    return redirect(f"/{list(data.keys())[-1]}")
+@application.route("/<date>")
+def home(date):
+    data = scrapper_formater()
+    if not date in data.keys():
+        return redirect("/")
+    return render_template("index.html", data = data, date = str(date))
 
 @application.route("/template/<html>")
 def render_test(html):
