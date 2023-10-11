@@ -90,152 +90,30 @@ def scrapper_formater():
         sorted_channels_subs = sorted(channels, key=lambda x: x["subs"], reverse=True)
         sorted_channels_views = sorted(channels, key=lambda x: x["views"], reverse=True)
         sorted_channels_likes = sorted(channels, key=lambda x: x["likes"], reverse=True)
-        for i, channel in enumerate(sorted_channels_subs, start=1):
-            if not channel['subs'] == 0:
-                finall_data[day]["scoreboard"]["subs"][i] = {
-                    "name":channel['channel_name'],
-                    "url":channel['url']
-                }
-                if 'subs' in channel:
-                    if not channel['subs'] == 0:
-                        finall_data[day]["scoreboard"]["subs"][i]["subs"]= channel['subs']
-                if 'views' in channel:
-                    if not channel['views'] == 0:
-                        finall_data[day]["scoreboard"]["subs"][i]["views"]= channel['views']
-                if 'likes' in channel:
-                    if not channel['likes'] == 0:
-                        finall_data[day]["scoreboard"]["subs"][i]["likes"]= channel['likes']
-        for i, channel in enumerate(sorted_channels_views, start=1):
-            if not channel['views'] == 0:
-                finall_data[day]["scoreboard"]["views"][i] = {
-                    "name":channel['channel_name'],
-                    "url":channel['url']
-                }
-                if 'subs' in channel:
-                    if not channel['subs'] == 0:
-                        finall_data[day]["scoreboard"]["views"][i]["subs"]= channel['subs']
-                if 'views' in channel:
-                    if not channel['views'] == 0:
-                        finall_data[day]["scoreboard"]["views"][i]["views"]= channel['views']
-                if 'likes' in channel:
-                    if not channel['likes'] == 0:
-                        finall_data[day]["scoreboard"]["views"][i]["likes"]= channel['likes']
-        for i, channel in enumerate(sorted_channels_likes, start=1):
-            if not channel['likes'] == 0:
-                finall_data[day]["scoreboard"]["likes"][i] = {
-                    "name":channel['channel_name'],
-                    "url":channel['url']
-                }
-                if 'subs' in channel:
-                    if not channel['subs'] == 0:
-                        finall_data[day]["scoreboard"]["likes"][i]["subs"]= channel['subs']
-                if 'views' in channel:
-                    if not channel['views'] == 0:
-                        finall_data[day]["scoreboard"]["likes"][i]["views"]= channel['views']
-                if 'likes' in channel:
-                    if not channel['likes'] == 0:
-                        finall_data[day]["scoreboard"]["likes"][i]["likes"]= channel['likes']
+        for x in [sorted_channels_subs, sorted_channels_views, sorted_channels_likes]:
+            if x == sorted_channels_subs:
+                z = "subs"
+            elif x == sorted_channels_views:
+                z = "views"
+            else:
+                z = "likes"
+            for i, channel in enumerate(x, start=1):
+                if not channel['subs'] == 0:
+                    finall_data[day]["scoreboard"][z][i] = {
+                        "name":channel['channel_name'],
+                        "url":channel['url']
+                    }
+                    if 'subs' in channel:
+                        if not channel['subs'] == 0:
+                            finall_data[day]["scoreboard"][z][i]["subs"]= clean_nummber(channel['subs'])
+                    if 'views' in channel:
+                        if not channel['views'] == 0:
+                            finall_data[day]["scoreboard"][z][i]["views"]= clean_nummber(channel['views'])
+                    if 'likes' in channel:
+                        if not channel['likes'] == 0:
+                            finall_data[day]["scoreboard"][z][i]["likes"]= clean_nummber(channel['likes'])
     return finall_data
-    for day in data.keys():
-        finall_data[day] = {
-            "config":{
-            }
-        }
-        day_data = {}
-        ##### sort 
-        sorted_likes_data = {hour: sort_channels_by_likes(data[day][hour]) for hour in data[day].keys()}
-        sorted_views_data = {hour: sort_channels_by_views(data[day][hour]) for hour in data[day].keys()}
-        sorted_subs_data = {hour: sort_channels_by_subs(data[day][hour]) for hour in data[day].keys()}
-        
-        day_data[day] = {
-            "likes": sorted_likes_data,
-            "views": sorted_views_data,
-            "subs": sorted_subs_data
-        }
-
-
-        # average day
-       
-        finall_data[day]["average_day"] = {}
-        
-        
-        keys_to_remove = []
-        sorted_likes_data = sort_channels_by_likes(finall_data[day]["average_day"])
-        sorted_views_data = sort_channels_by_views(finall_data[day]["average_day"])
-        sorted_subs_data =  sort_channels_by_subs(finall_data[day]["average_day"])
-        
-        for y in [sorted_likes_data, sorted_views_data, sorted_subs_data]:
-            to_modify = []
-            for x in y:
-                if x == "":
-                    to_modify.append((x, y[x]["url"].replace("/","").replace("-"," "), y[x]))
-            for x_old, x, x_data in to_modify:
-                y.pop(x_old)
-                y[x] =x_data
-
-
-        finall_data[day]["average_day"] = {
-            "likes": sorted_likes_data,
-            "views": sorted_views_data,
-            "subs": sorted_subs_data
-        }
-
-
-        for who, channel, which in keys_to_remove:
-            try:
-                finall_data[day]["average_day"][who][channel].pop(which)
-            except KeyError:
-                continue
-    # average
-    keys_to_remove = []
-    for channel in finall_data["average"].keys():
-            for which in finall_data["average"][channel].keys():
-                if not which == "url":
-                    if finall_data["average"][channel][which] == []:
-                        keys_to_remove.append((channel, which))
-                    else:
-                        finall_data["average"][channel][which] = int(sum(finall_data["average"][channel][which]) / len(finall_data["average"][channel][which]))
-
-    for channel, which in keys_to_remove:
-        finall_data["average"][channel].pop(which)    
-
-    #######  clean Numbers
-
-    iteams_to_modify_average_day= []
-    iteams_to_modify_average= []
-
-    for day in finall_data.keys():
-        if not "average" in day:
-            for tags in finall_data[day].keys():
-                if  "average" in tags:
-                    for who in finall_data[day][tags].keys():
-                        for channel in finall_data[day][tags][who].keys():
-                                for which in finall_data[day][tags][who][channel].keys():
-                                    if not which == "url"   :
-                                        iteams_to_modify_average_day.append((day, tags, who ,channel, which))
-        else:
-            for channel in finall_data[day]:
-                for which in finall_data[day][channel].keys():
-                    if not which == "url":
-                        iteams_to_modify_average.append((day, channel, which))
     
-    for day, tags, who ,channel, which in iteams_to_modify_average_day:
-        try:
-            numb=finall_data[day][tags][who][channel][which]
-            finall_data[day][tags][who][channel][f"{which}_clean"] =clean_nummber(numb=finall_data[day][tags][who][channel][which])
-        except KeyError:
-            print(day, tags, who ,channel, which)
-            return finall_data
-        
-
-    for day, channel, which in iteams_to_modify_average:
-        finall_data[day][channel][f"{which}_clean"] = clean_nummber(numb=finall_data[day][channel][which])
-
-
-
-    
-    return data
-
 def clean_nummber(numb):
     if len(str(numb)) > 7:
         return f"{round(numb / 10000000,1)} Mio"
