@@ -227,7 +227,7 @@ def api_edit(what, cmd, value):
         with open("config.json") as f:
             data = json.load(f)
         if what in data.keys():
-            data[what]["value"] = value
+            data[what]["value"] = value.replace("&","/")
             with open("config.json", "w") as f:
                 json.dump(data, f, indent=4)
     return "Erfolgreich"

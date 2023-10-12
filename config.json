@@ -7,7 +7,7 @@
         "input_type": "text"
     },
     "og_img": {
-        "value": "https://editor.analyticsvidhya.com/uploads/57125cover.jpg",
+        "value": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Pornhub-logo.svg/1200px-Pornhub-logo.svg.png",
         "display_title": "Open Graph IMG",
         "description": "Gibt das IMG bei Links an",
         "type": "IMG",
