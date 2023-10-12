@@ -71,6 +71,8 @@ def scrapper_formater():
                             finall_data["average"][channel][which].append(finall_data[day]["average_day"][channel][which])
                         except TypeError:
                             continue
+                else:
+                    finall_data["average"][channel]["url"] = finall_data[day]["average_day"][channel][which]
         for channel, which in keys_to_remove:
             try:
                 finall_data[day]["average_day"][channel].pop(which)

@@ -52,8 +52,22 @@ def Web():
 
                 table = soup.find('div', attrs = {'class':'mx-auto max-w-screen-md'})
 
-
+                
                 for row in table.findAll('a'):
+
+                    
+                    try:
+                        img_link = row.findAll('img')[0].get('src')
+                    except Exception as e:
+                        img_link = None
+                    if not img_link == None:
+                        with open(f"pictures_data.json") as f:
+                            data = json.load(f)
+                        data[row.findAll('span')[2].text] = img_link
+                        with open(f"pictures_data.json", "w") as f:
+                            json.dump(data, f, indent=4)
+                        
+                    
                     if "https://nindo.de/charts/youtube/views" ==  URL:
                         views[row.findAll('span')[2].text] = {
                             'url': row['href'],
