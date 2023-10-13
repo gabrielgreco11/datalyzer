@@ -3,10 +3,12 @@ import json
 import requests
 import datetime
 import os
+from googleapiclient.discovery import build
 import scrapper
 
 application = Flask(__name__)
 application.secret_key = "vS44D3LML9gi0vu1SAsjYePZ5TM6ecVyjgJcgZeMNVXS6HBkiy"
+
 def scrapper_formater():
     folder_path = "output/"
     file_list = os.listdir(folder_path)
@@ -50,6 +52,7 @@ def scrapper_formater():
                     else:
                         finall_data[day]["average_day"][display_channel][which].append(data[day][hour][channel][which])
         keys_to_remove = []
+        items_to_modify = []
         for channel in finall_data[day]["average_day"].keys():
             for which in finall_data[day]["average_day"][channel].keys():
                 if not which == "url":
@@ -60,6 +63,7 @@ def scrapper_formater():
                             zahl = (sum(finall_data[day]["average_day"][channel][which]) / len(finall_data[day]["average_day"][channel][which]))
                             zahl = int(zahl)
                             finall_data[day]["average_day"][channel][which] = zahl
+                            items_to_modify.append((channel,which,zahl))
                             try:
                                 finall_data["average"][channel]
                             except KeyError:
@@ -115,6 +119,8 @@ def scrapper_formater():
                     if 'likes' in channel:
                         if not channel['likes'] == 0:
                             finall_data[day]["scoreboard"][z][i]["likes"]= clean_nummber(channel['likes'])
+        for channel,which,zahl in items_to_modify:
+            finall_data[day]["average_day"][channel][f"{which}_clean"] = clean_nummber(zahl)
     return finall_data
     
 def clean_nummber(numb):
@@ -143,6 +149,7 @@ def sort_channels_by_subs(data):
 def redirect_home():
     data = scrapper_formater()
     return redirect(f"/{list(data.keys())[-1]}")
+
 @application.route("/<date>")
 def home(date):
     data = scrapper_formater()
@@ -150,11 +157,26 @@ def home(date):
         return redirect("/")
     return render_template("index.html", data = data, date = str(date))
 
+@application.route("/yotuber/<youtuber>")
+def youtuber(youtuber):
+    data = scrapper_formater()
+    channel_list = []
+    for channel in data["average"].keys():
+        for item in data["average"][channel].keys():
+            if item == "url":
+                if "/"+youtuber == data["average"][channel]["url"]:
+                    channel_list.append(channel)
+    youtuber_display = youtuber.replace("/","").replace("-"," ").title()
+    with open("pictures_data.json") as f:
+        pictures_data = json.load(f)
+    return render_template("fokus_one_youtuber.html",last_date=list(data.keys())[-1], youtuber_display = youtuber_display, data = data, channel_list=channel_list, channel_list_range = range(0,len(channel_list)),pictures_data = pictures_data)
+
+@application.route("/<date>")
+
 @application.route("/template/<html>")
 def render_test(html):
     return render_template(f"{html}.html")
 
-    
 
 @application.route("/base")
 def base_test():
@@ -200,7 +222,6 @@ def scrapper_show():
 @application.route("/static/image/<img>")
 def img(img):
     return send_file(f"images/{img}")
-
 @application.route("/settings")
 def settings():
     with open("config.json") as f:
@@ -233,6 +254,10 @@ def api_edit(what, cmd, value):
             with open("config.json", "w") as f:
                 json.dump(data, f, indent=4)
     return "Erfolgreich"
+
+@application.route("/api/get_all_data")
+def api_get_data():
+    return jsonify(scrapper_formater())
 
 if __name__ == "__main__":
     application.run(host="0.0.0.0", debug=True, port=5000)

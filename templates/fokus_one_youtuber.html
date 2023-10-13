@@ -1,17 +1,76 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} 
 {% block content%}
-<div style="display: flex;height: 100px;">
-<h1><img style="height: 50px; border-radius: 50%;" src="{{youtuber_data[1]}}" alt="{{youtuber_data[0]}} Kanal Bild">{{youtuber_data[0]}}</h1>
+<div style="display: flex;height: 100px; align-items: center;">
+<img style="height: 50px; border-radius: 50%;" src="{{pictures_data[channel_list[0]]}}" alt=" Kanal Bild"><p>{{youtuber_display}}</p>
 </div>
 <!-- Todo:
 -Nindo Scrapper bearbeiten das Imgs auch gescappt werden
 -youtube APi ausbinden und durch die daten des Scrappers ersetzten -->
-
-<h3>{{youtuber_data[2]}}</h3>
-{% if channel_list_len >= 1 %}
-<h1>Kanäle die ihm gehören</h1>
-{% for x in channel_list %}
-<h2>{{x}}</h2>
-{% endfor %}
+<br>
+<h1>Kanäle die ihm/ihr gehören</h1>
+{% for x in channel_list_range %}
+<div style="display: flex;align-items: center;">
+<img style="height: 50px; border-radius: 50%;" src="{{pictures_data[channel_list[x]]}}" alt="{{channel_list[x]}}_IMG"><p>{{channel_list[x]}}</p>
+</div>
+<div style="display: flex;">
+{% for y in data[last_date]["average_day"][channel_list[x]].keys() %}
+{% if "_" in y %}
+<p>{{y}}: {{data[last_date]["average_day"][channel_list[x]][y]}}</p>
 {% endif %}
+{% endfor %}
+</div>
+<div class="ct-chart-{{x}}"></div>
+<script>fetch('/api/get_all_data')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(responseData => {
+        var likes = [];
+        var views = [];
+        var subs = [];
+        var keys = Object.keys(responseData);
+        keys.splice(keys.indexOf("average"), 1);
+        keys.forEach((item) => {
+            which_list = Object.keys(responseData[item].average_day["{{ channel_list[x] }}"]);
+            if (which_list.includes("likes")) {
+                likes.push(responseData[item].average_day["{{ channel_list[x] }}"].likes);
+            } else {
+                likes.push(null);
+            }
+            if (which_list.includes("views")) {
+                views.push(responseData[item].average_day["{{ channel_list[x] }}"].views);
+            } else {
+                views.push(null);
+            }
+            if (which_list.includes("subs")) {
+                subs.push(responseData[item].average_day["{{ channel_list[x] }}"].subs);
+            } else {
+                subs.push(null);
+            }
+        });
+        console.log(likes, views, subs);
+
+      new Chartist.Line('.ct-chart-{{x}}', {
+        labels: keys,
+        series: [
+          likes,
+          views,
+          subs
+        ]
+      }, {
+        fullWidth: true,
+        chartPadding: {
+          right: 100
+        }
+      });
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
+    });
+  </script>
+
+{% endfor %}
 {% endblock %}
