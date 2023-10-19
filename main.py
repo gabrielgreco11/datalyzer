@@ -156,7 +156,7 @@ def home(date):
         return redirect("/")
     return render_template("index.html", data = data, date = str(date))
 
-@application.route("/yotuber/<youtuber>")
+@application.route("/youtuber/<youtuber>")
 def youtuber(youtuber):
     data = scrapper_formater()
     channel_list = []
