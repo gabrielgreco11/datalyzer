@@ -3,7 +3,6 @@ import json
 import requests
 import datetime
 import os
-from googleapiclient.discovery import build
 import scrapper
 
 application = Flask(__name__)
