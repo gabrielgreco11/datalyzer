@@ -171,12 +171,20 @@ def youtuber(youtuber):
         pictures_data = json.load(f)
     return render_template("fokus_one_youtuber.html",last_date=list(data.keys())[-1], youtuber_display = youtuber_display, data = data, channel_list=channel_list, channel_list_range = range(0,len(channel_list)),pictures_data = pictures_data)
 
-@application.route("/<date>")
+@application.route("/site")
+def site_without_sort():
+    return redirect("/site/likes")
+@application.route("/site/<sort>")
+def site(sort):
+    if sort in ["likes","views","subs"]:
+        data=scrapper_formater()
+        return render_template("sites.html", data=data, sort=sort,last_date=list(data.keys())[-1] )
+    else:
+        return redirect("/site")
 
 @application.route("/template/<html>")
 def render_test(html):
     return render_template(f"{html}.html")
-
 
 @application.route("/base")
 def base_test():
@@ -184,7 +192,6 @@ def base_test():
 @application.errorhandler(404)
 def not_found(e):
     return render_template("404.html")
-
 
 @application.route("/rick")
 def rick_role():
@@ -198,22 +205,18 @@ def github():
 def easteregg():
     return redirect("https://www.youtube.com/watch?v=FJ3N_2r6R-o")
 
-
 @application.route("/timer/<date>")
 def timer(date):
     return render_template("timer.html")
-
 
 @application.route("/restart")
 def restart():
     open("restart", "w")
     return "Erfolgreich Gestartet"
 
-
 @application.route("/scraper")
 def scrapper_start():
     return scrapper.Web()
-
 
 @application.route("/scraper/show")
 def scrapper_show():
@@ -222,6 +225,7 @@ def scrapper_show():
 @application.route("/static/image/<img>")
 def img(img):
     return send_file(f"images/{img}")
+
 @application.route("/settings")
 def settings():
     with open("config.json") as f:
@@ -242,7 +246,6 @@ def api(what,format):
             return daten
         else:
             return jsonify({what:daten})
-
 
 @application.route("/api/<cmd>/<what>/<value>")
 def api_edit(what, cmd, value):

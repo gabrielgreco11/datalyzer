@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} 
+{% block content%}
+<label for="metrics">Select a metric:</label>
+    <select id="metrics">
+        <option value="likes">Likes</option>
+        <option value="views">Views</option>
+        <option value="subs">Subscribers</option>
+    </select>
+    <table>
+        <thead>
+            <tr>
+                <th>Channel ID</th>
+                <th>Channel Name</th>
+                <th>Sort Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for channel in data[last_date]["scoreboard"][sort].keys() %}
+            <tr>
+                <td>#{{channel}}</td>
+                <td>{{ data[last_date]["scoreboard"][sort][channel]["name"] }}</td>
+                <td>{{ data[last_date]["scoreboard"][sort][channel][sort] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <script>
+        // Den Pfad der aktuellen Seite erhalten
+        var path = window.location.pathname;
+
+        // Das letzte Element im Pfad extrahieren
+        var pathSegments = path.split("/");
+        var lastElement = pathSegments[pathSegments.length - 1];
+
+        document.getElementById("metrics").value = lastElement;
+
+        const dropdown = document.getElementById("metrics");
+        dropdown.addEventListener("change", function() {
+            const selectedMetric = dropdown.value;
+            console.log(selectedMetric)
+            window.location.href = "/site/" + selectedMetric;})
+    </script>
+{% endblock %}
