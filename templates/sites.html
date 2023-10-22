@@ -1,29 +1,33 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} 
 {% block content%}
-<label for="metrics">Select a metric:</label>
-    <select id="metrics">
-        <option value="likes">Likes</option>
-        <option value="views">Views</option>
-        <option value="subs">Subscribers</option>
-    </select>
+<div class="flex justify-center p-6 flex-row">
+    <label for="metrics">Select a metric:</label>
+        <select id="metrics">
+            <option value="likes">Likes</option>
+            <option value="views">Views</option>
+            <option value="subs">Subscribers</option>
+        </select>
+</div>
+<div>       
     <table>
         <thead>
-            <tr>
-                <th>Channel ID</th>
-                <th>Channel Name</th>
-                <th>Sort Value</th>
+                <tr>
+                    <th>Channel ID</th>
+                    <th>Channel Name</th>
+                    <th>Sort Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for channel in data[last_date]["scoreboard"][sort].keys() %}
+                <tr>
+                    <td>#{{channel}}</td>
+                    <td><a href='/youtuber{{ data[last_date]["scoreboard"][sort][channel]["url"] }}'>{{ data[last_date]["scoreboard"][sort][channel]["name"] }}</a></td>
+                    <td>{{ data[last_date]["scoreboard"][sort][channel][sort] }}</td>
             </tr>
-        </thead>
-        <tbody>
-            {% for channel in data[last_date]["scoreboard"][sort].keys() %}
-            <tr>
-                <td>#{{channel}}</td>
-                <td><a href='/youtuber{{ data[last_date]["scoreboard"][sort][channel]["url"] }}'>{{ data[last_date]["scoreboard"][sort][channel]["name"] }}</a></td>
-                <td>{{ data[last_date]["scoreboard"][sort][channel][sort] }}</td>
-            </tr>
-            {% endfor %}
+                {% endfor %}
         </tbody>
     </table>
+</div>
     
     <script>
         // Den Pfad der aktuellen Seite erhalten
