@@ -1,5 +1,6 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} 
 {% block content%}
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/output.css') }}">
 <div class="flex justify-center p-6 mt-12">
   <img class="w-32 h-32 rounded-full" src="{{pictures_data[channel_list[0]]}}" alt=" Kanal Bild">
   <h1 class="flex align-middle items-center p-2  text-6xl">{{youtuber_display}}</h1>
