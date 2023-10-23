@@ -1,4 +1,4 @@
-# datalyzer
+# datalyzer.ch
 nindo.fake
 
 MOIN
