@@ -6,7 +6,6 @@ git reset --hard
 git fetch
 git pull
 
-start /B py scrapper.py
 start /B py main.py > log.txt
 
 :loop
