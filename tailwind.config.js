@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-  
   './base.html','./index.html', './charts.html,', './sites.html', 'fokus_one_youtuber.html','./settings.html' ],
   theme: {
     extend: {
