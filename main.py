@@ -200,9 +200,6 @@ def rick_role():
 def github():
     return redirect("https://github.com/gabrielgreco11/datalyzer")
 
-@application.route("/rede")
-def easteregg():
-    return redirect("https://www.youtube.com/watch?v=FJ3N_2r6R-o")
 
 @application.route("/timer/<date>")
 def timer(date):
@@ -212,7 +209,6 @@ def timer(date):
 def restart():
     open("restart", "w")
     return "Erfolgreich Gestartet"
-
 @application.route("/scraper")
 def scrapper_start():
     return scrapper.Web()
