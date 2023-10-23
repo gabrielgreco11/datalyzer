@@ -4,70 +4,10 @@
     
         <div class="grid grid-cols-1 lg:grid-cols-2 p-6 lg:px-36 py-12">
             <div class="grid grid-rows-3 p-1">
-                <div class="w-full  flex justify-start align-baseline items-baseline">
-                    <h1 id="typewriter" class="font-semibold text-5xl flex items-baseline align-baseline"></h1>
-                </div>
                 
-                <script>
-                const words = ["Datalyzer.ch", "TBZ", "ASE AG", "Opten AG"];
-                let i = 0;
-                let j = 0;
-                let currentWord = "";
-                let isDeleting = false;
                 
-                function type() {
-                  currentWord = words[i];
-                  if (isDeleting) {
-                    document.getElementById("typewriter").textContent = currentWord.substring(0, j-1);
-                    j--;
-                    if (j == 0) {
-                      isDeleting = false;
-                      i++;
-                      if (i == words.length) {
-                        i = 0;
-                      }
-                    }
-                  } else {
-                    document.getElementById("typewriter").textContent = currentWord.substring(0, j+1);
-                    j++;
-                    if (j == currentWord.length) {
-                      isDeleting = true;
-                    }
-                  }
-                  setTimeout(type, 100);
-                }
+               
                 
-                type();
-                </script>
-                <div class="p-4">
-                    <div class="relative mb-4 flex  md:w-full items-stretch">
-                      <input
-                        type="search"
-                        class="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
-                        placeholder="Search"
-                        aria-label="Search"
-                        aria-describedby="button-addon1" />
-                  
-                      <!--Search button-->
-                      <button
-                        class="relative z-[2] flex items-center rounded-r bg-primary px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
-                        type="button"
-                        id="button-addon1"
-                        data-te-ripple-init
-                        data-te-ripple-color="light">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                          class="h-5 w-5">
-                          <path
-                            fill-rule="evenodd"
-                            d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                            clip-rule="evenodd" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
                 <div class="flex place-items-center">
                     <p class="text-5xl font-semibold text-center">
                         Finde deine lieblings Influencer
