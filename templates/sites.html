@@ -14,7 +14,7 @@
 </div>
 <div class="flex justify-center p-6 text-white" >       
     <table class=" rounded-md" style="background-color: rgba(0, 0, 0, 0.405); padding: 3rem;">
-        <thead>
+        <thead class="p-4">
                 <tr>
                     <th>Channel ID</th>
                     <th>Channel Name</th>
@@ -24,9 +24,9 @@
             <tbody>
                 {% for channel in data[last_date]["scoreboard"][sort].keys() %}
                 <tr>
-                    <td class="border-white p-6">#{{channel}}</td>
-                    <td class="border-white flex justify-center p-6 hover:scale-105 hover: bg-slate-400"><a href='/youtuber{{ data[last_date]["scoreboard"][sort][channel]["url"] }}'>{{ data[last_date]["scoreboard"][sort][channel]["name"] }}</a></td>
-                    <td class="border-white p-6">{{ data[last_date]["scoreboard"][sort][channel][sort] }}</td>
+                    <td class="border-white p-4">#{{channel}}</td>
+                    <td class="border-white flex justify-center p-4 hover:scale-105 bg-gray-500"><a href='/youtuber{{ data[last_date]["scoreboard"][sort][channel]["url"] }}'>{{ data[last_date]["scoreboard"][sort][channel]["name"] }}</a></td>
+                    <td class="border-white p-4">{{ data[last_date]["scoreboard"][sort][channel][sort] }}</td>
             </tr>
                 {% endfor %}
         </tbody>
