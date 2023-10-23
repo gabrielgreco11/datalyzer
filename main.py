@@ -209,9 +209,6 @@ def timer(date):
 def restart():
     open("restart", "w")
     return "Erfolgreich Gestartet"
-@application.route("/scraper")
-def scrapper_start():
-    return scrapper.Web()
 
 @application.route("/scraper/show")
 def scrapper_show():
