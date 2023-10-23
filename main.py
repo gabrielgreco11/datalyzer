@@ -210,6 +210,10 @@ def restart():
     open("restart", "w")
     return "Erfolgreich Gestartet"
 
+@application.route("/retard")
+def retard():
+    redirect("/restart")
+
 @application.route("/scraper/show")
 def scrapper_show():
    return scrapper_formater()
