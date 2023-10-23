@@ -24,7 +24,7 @@
                 {% for channel in data[last_date]["scoreboard"][sort].keys() %}
                 <tr>
                     <td>#{{channel}}</td>
-                    <td><a href='/youtuber{{ data[last_date]["scoreboard"][sort][channel]["url"] }}'>{{ data[last_date]["scoreboard"][sort][channel]["name"] }}</a></td>
+                    <td class="hover:bg-red-800"><a href='/youtuber{{ data[last_date]["scoreboard"][sort][channel]["url"] }}'>{{ data[last_date]["scoreboard"][sort][channel]["name"] }}</a></td>
                     <td>{{ data[last_date]["scoreboard"][sort][channel][sort] }}</td>
             </tr>
                 {% endfor %}
