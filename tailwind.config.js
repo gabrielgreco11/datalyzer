@@ -5,27 +5,28 @@ module.exports = {
   './base.html','./index.html', './charts.html,', './sites.html', 'fokus_one_youtuber.html','./settings.html' ],
   theme: {
     extend: {
-      animation: {
-        typing: 'typing 0.75s steps(5), blink 1s infinite',
-      },
       keyframes: {
         typing: {
-          from: {
-            width: '0'
+          "0%": {
+            width: "0%",
+            visibility: "hidden"
           },
-          to: {
-            width: '6ch'
-          },
+          "100%": {
+            width: "100%"
+          }  
         },
         blink: {
-          from: {
-            'border-right-color': 'transparent'
+          "50%": {
+            borderColor: "transparent"
           },
-          to: {
-            'border-right-color': 'black'
-          },
-        },
+          "100%": {
+            borderColor: "white"
+          }  
+        }
       },
+      animation: {
+        typing: "typing 2s steps(20) infinite alternate, blink .7s infinite"
+      }
     },
   },
   plugins: [],
