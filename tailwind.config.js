@@ -2,7 +2,7 @@
 module.exports = {
   content: ['./components/**/*.{html,js}',
   './pages/**/*.{html,js}',
-  './index.html',],
+  './base.html','./index.html', './charts.html,', './sites.html', 'fokus_one_youtuber.html', ],
   theme: {
     extend: {
       animation: {
