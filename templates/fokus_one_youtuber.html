@@ -18,7 +18,7 @@
 </div>
 
 {% for x in channel_list_range %}
-<div style="display: flex;">
+<div class="flex justify-center">
 {% for y in data[last_date]["average_day"][channel_list[x]].keys() %}
 {% if "_" in y %}
 <p>{{y}}: {{data[last_date]["average_day"][channel_list[x]][y]}}</p>
