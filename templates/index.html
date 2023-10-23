@@ -4,11 +4,41 @@
     
         <div class="grid grid-cols-1 lg:grid-cols-2 p-6 lg:px-36 py-12">
             <div class="grid grid-rows-3 p-1">
-                <div class="flex self-end justify-start p-1">
-                    <p class=" text-5xl md:text-8xl inline-block overflow-hidden whitespace-nowrap animate-typing border-r-4" style="background: linear-gradient(to bottom right, rgb(238, 7, 7), rgb(167, 124, 44)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                        Datalyzer.ch
-                    </p>
+                <div class="w-full h-full flex justify-center items-center">
+                    <h1 id="typewriter" class="text-4xl font-bold"></h1>
                 </div>
+                
+                <script>
+                const words = ["Datalyzer.ch"];
+                let i = 0;
+                let j = 0;
+                let currentWord = "";
+                let isDeleting = false;
+                
+                function type() {
+                  currentWord = words[i];
+                  if (isDeleting) {
+                    document.getElementById("typewriter").textContent = currentWord.substring(0, j-1);
+                    j--;
+                    if (j == 0) {
+                      isDeleting = false;
+                      i++;
+                      if (i == words.length) {
+                        i = 0;
+                      }
+                    }
+                  } else {
+                    document.getElementById("typewriter").textContent = currentWord.substring(0, j+1);
+                    j++;
+                    if (j == currentWord.length) {
+                      isDeleting = true;
+                    }
+                  }
+                  setTimeout(type, 100);
+                }
+                
+                type();
+                </script>
                 <div class="p-4">
                     <div class="relative mb-4 flex  md:w-full items-stretch">
                       <input
