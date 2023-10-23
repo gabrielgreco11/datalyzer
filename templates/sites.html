@@ -12,7 +12,7 @@
         </select>
 </div>
 <div class="flex justify-center p-6 text-white" >       
-    <table class="p-6" style="background: linear-gradient(45deg , rgba(255, 0, 0, 0.316),rgba(255, 0, 0, 0.486));">
+    <table class="p-6 rounded-md" style="background: linear-gradient(45deg , rgba(255, 0, 0, 0.316),rgba(255, 0, 0, 0.486));">
         <thead>
                 <tr>
                     <th>Channel ID</th>
@@ -23,9 +23,9 @@
             <tbody>
                 {% for channel in data[last_date]["scoreboard"][sort].keys() %}
                 <tr>
-                    <td>#{{channel}}</td>
-                    <td class="hover:bg-red-800 flex justify-center"><a href='/youtuber{{ data[last_date]["scoreboard"][sort][channel]["url"] }}'>{{ data[last_date]["scoreboard"][sort][channel]["name"] }}</a></td>
-                    <td>{{ data[last_date]["scoreboard"][sort][channel][sort] }}</td>
+                    <td class="border">#{{channel}}</td>
+                    <td class="border flex justify-center"><a href='/youtuber{{ data[last_date]["scoreboard"][sort][channel]["url"] }}'>{{ data[last_date]["scoreboard"][sort][channel]["name"] }}</a></td>
+                    <td class="border">{{ data[last_date]["scoreboard"][sort][channel][sort] }}</td>
             </tr>
                 {% endfor %}
         </tbody>
