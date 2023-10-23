@@ -1,142 +1,261 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="output.css">
-    <title>Nindo-Fake</title>
-</head>
-
-<body class="bg-neutral-700">
-
-    <nav class="bg-black">
-        <div class="max-w flex flex-wrap items-center justify-between mx-auto p-4">
-
-
-            <h1 class="justify-start text-3xl font-bold hover:scale-105"
-                style="background: linear-gradient(to bottom right, rgb(238, 7, 7), rgb(167, 124, 44)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                <a href="index.html">Datalyzer</a>
-
-            </h1>
-
-
-            <div class="w-auto" id="navbar-default">
-                <ul class="hidden  font-bold lg:flex flex-row p-4  rounded-lg space-x-8 border-0">
-
-                    <li>
-                        <a href="charts.html"
-                            class="block py-2 pl-3 pr-4 text-white rounded p-0 hover:scale-105">Charts</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 pl-3 pr-4 text-white rounded p-0 hover:scale-105">Monitoring</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 pl-3 pr-4 text-white rounded p-0 hover:scale-105">Likes</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 pl-3 pr-4 text-white rounded p-0 hover:scale-105">Views</a>
-                    </li>
-                </ul>
+{% extends "base.html" %} {% block title %}Home{% endblock %} 
+{% block content%}
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/output.css') }}">  
+    
+        <div class="grid grid-cols-1 lg:grid-cols-2 p-6 lg:px-36 py-12">
+            <div class="grid grid-rows-3 p-1">
+                <div class="w-full  flex justify-start align-baseline items-baseline">
+                    <h1 id="typewriter" class="font-semibold text-5xl flex items-baseline align-baseline"></h1>
+                </div>
+                
+                <script>
+                const words = ["Datalyzer.ch"];
+                let i = 0;
+                let j = 0;
+                let currentWord = "";
+                let isDeleting = false;
+                
+                function type() {
+                  currentWord = words[i];
+                  if (isDeleting) {
+                    document.getElementById("typewriter").textContent = currentWord.substring(0, j-1);
+                    j--;
+                    if (j == 0) {
+                      isDeleting = false;
+                      i++;
+                      if (i == words.length) {
+                        i = 0;
+                      }
+                    }
+                  } else {
+                    document.getElementById("typewriter").textContent = currentWord.substring(0, j+1);
+                    j++;
+                    if (j == currentWord.length) {
+                      isDeleting = true;
+                    }
+                  }
+                  setTimeout(type, 100);
+                }
+                
+                type();
+                </script>
+                <div class="p-4">
+                    <div class="relative mb-4 flex  md:w-full items-stretch">
+                      <input
+                        type="search"
+                        class="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+                        placeholder="Search"
+                        aria-label="Search"
+                        aria-describedby="button-addon1" />
+                  
+                      <!--Search button-->
+                      <button
+                        class="relative z-[2] flex items-center rounded-r bg-primary px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
+                        type="button"
+                        id="button-addon1"
+                        data-te-ripple-init
+                        data-te-ripple-color="light">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          class="h-5 w-5">
+                          <path
+                            fill-rule="evenodd"
+                            d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+                            clip-rule="evenodd" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                <div class="flex place-items-center">
+                    <p class="text-5xl font-semibold text-center">
+                        Finde deine lieblings Influencer
+                        hier auf <span class=""
+                            style="background: linear-gradient(to bottom right, rgb(238, 7, 7), rgb(167, 124, 44)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Datalyzer.ch</span>
+                        und entdecke statistiken zu ihnen</p>
+                </div>
             </div>
-            <div class="lg:hidden flex items-center">
-                <button class="outline-none mobile-menu-button">
-                    <svg class=" w-6 h-6 text-gray-500 hover:scale-110" x-show="!showMenu" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
+            <div class="grid grid-cols-2 p-6">
+                <div class="flex justify-center">
+                    <img class="w-16 h-16 rounded-md" src="https://datalyzer.ch/static/image/MontanaBlack.jpg" alt="monteeee!!!">
+                </div>
+                <div class="flex justify-center">
+                    <img class="w-16 h-16 rounded-md" src="https://datalyzer.ch/static/image/Aldi_S%C3%BCd_2017_logo.svg.png" alt="aldiiii">
+                </div>
+                <div class="flex justify-center">
+                    <img class="w-16 h-16 rounded-md" src="https://datalyzer.ch/static/image/pamelaReifYT.png" alt="pamelaReif">
+                </div>
+                <div class="flex justify-center">
+                    <img class="w-16 h-16 rounded-md" src="https://datalyzer.ch/static/image/julienBam.png" alt="julienBam">
+                </div>
             </div>
+    
 
-        </div>
-
-
-        <!-- mobile menu -->
-        <div class="hidden mobile-menu bg-black">
-            <ul class="">
-                <li><a href="charts.html"
-                        class="block text-sm px-2 py-4 text-white hover:bg-neutral-700 transition duration-300">Charts</a>
-                </li>
-                <li><a href="#about"
-                        class="block text-sm px-2 py-4 text-white hover:bg-neutral-700 transition duration-300">Monitoring</a>
-                </li>
-                <li><a href="#contact"
-                        class="block text-sm px-2 py-4 text-white hover:bg-neutral-700 transition duration-300">Views</a>
-                </li>
-                <li><a href="#contact"
-                        class="block text-sm px-2 py-4 text-white hover:bg-neutral-700 transition duration-300">Likes</a>
-                </li>
-
-            </ul>
-        </div>
-        <script>
-            const btn = document.querySelector("button.mobile-menu-button");
-            const menu = document.querySelector(".mobile-menu");
-
-            btn.addEventListener("click", () => {
-                menu.classList.toggle("hidden");
-            });
-        </script>
-
-    </nav>
-
-    <div class=" mt-12 p-6 mx-4 lg:mx-12">
-        <h1 class="font-bold text-2xl text-white">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.
-        </h1>
-    </div>
-
-    <div class="p-6 mx-4 lg:mx-12">
-        <h1 class=" text-center font-bold text-2xl text-white">
-            Find Stats of your favorite Influencer here!!
-        </h1>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+    
         <div class="rounded p-2 my-4 mx-2 md:mx-4 lg:mx-6 flex justify-center overflow-hidden shadow-lg"
-            style="background: rgb(255, 0, 0);">
-            <div class="px-6 py-4">
-                <p class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-red-600 mr-2 mb-2">
-                    Youtube<img src="/images/youtube.png" height="24px" width="24px">
-                </p>
-                <p class="text-black text-base p-2">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et
-                    perferendis eaque, exercitationem praesentium nihil.
-                </p>
-                <a href="charts.html">
+            style="background: linear-gradient(45deg , rgba(255, 0, 0, 0.6), rgba(255, 0, 0, 0.9));"><!--first card -->
+            <div class="p-4">
+                <div class="grid grid-cols-2 bg-gray-200 rounded-md my-1 p-1.5 w-full">
+                    <div class="text-sm font-semibold text-red-600">
+                        Youtube <img class="inline" src="https://datalyzer.ch/static/image/youtube.png" height="36px" width="36px">
+
+                    </div>
+                    <div class="flex self-center justify-self-end font-semibold text-red-600">Ø likes</div>
+                </div>
+                <div class="justify-between bg-white rounded-md">
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="p-2 font-bold" style="color: rgb(228, 195, 113); ">#1</div><!--rang-->
+                        <div class="p-2"><a class="hover:-scale-105" href='/youtuber{{data[date]["scoreboard"]["likes"]["1."]["url"]}}'>{{data[date]["scoreboard"]["likes"]["1."]["name"]}}</a></div>
+                        <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["likes"]["1."]["likes"]}}</div> <!--view/likes/abos-->
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="p-2 font-bold" style="color: rgb(192, 192, 192); ">#2</div><!--rang-->
+                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["likes"]["2."]["url"]}}'>{{data[date]["scoreboard"]["likes"]["2."]["name"]}}</a></div> <!--youtuber name-->
+                        <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["likes"]["2."]["likes"]}}</div> <!--view/likes/abos-->
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="p-2 font-bold" style="color: rgb(140, 120, 83); ">#3</div><!--rang-->
+                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["likes"]["3."]["url"]}}'>{{data[date]["scoreboard"]["likes"]["3."]["name"]}}</a></div> <!--youtuber name-->
+                        <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["likes"]["3."]["likes"]}}</div> <!--view/likes/abos-->
+                    </div>
+
+                </div>
+
+                <a class="flex justify-center" href="/site/likes">
                     <button
-                        class="select-none rounded-lg bg-white py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-red-600 shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        class=" flex select-none rounded-lg bg-white py-3 px-6 my-2 text-center items-center align-bottom font-sans text-xs font-bold uppercase text-white shadow-md "
                         type="button" data-ripple-light="true">
-                        Go to Stats
+                        Go to full Stats
                     </button>
                 </a>
             </div>
 
         </div>
-
         <div class="rounded p-2 my-4 mx-2 md:mx-4 lg:mx-6 flex justify-center overflow-hidden shadow-lg"
-        >
-            <div class="px-6 py-4">
-                <span
-                    class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Youtube</span>
-                <p class="text-black text-base">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et
-                    perferendis eaque, exercitationem praesentium nihil.
-                </p>
+            style="background: linear-gradient(45deg , rgba(255, 0, 0, 0.6), rgba(255, 0, 0, 0.9));"><!--second card -->
+            <div class="p-4">
+                <div class="grid grid-cols-2 bg-gray-200 rounded-md my-1 p-1.5 w-full">
+                    <div class="text-sm font-semibold text-red-600">
+                        Youtube <img class="inline" src="https://datalyzer.ch/static/image/youtube.png" height="36px" width="36px">
+
+                    </div>
+                    <div class="flex self-center font-semibold justify-self-end  text-red-600">Subscriber</div>
+                </div>
+                <div class="justify-between bg-white rounded-md">
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="p-2 font-bold" style="color: rgb(228, 195, 113); ">#1</div><!--rang-->
+                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["subs"]["1."]["url"]}}'>{{data[date]["scoreboard"]["subs"]["1."]["name"]}}</a></div> <!--youtuber name-->
+                        <div class="p-2 justify-self-end"> {{data[date]["scoreboard"]["subs"]["1."]["subs"]}}</div> <!--view/likes/abos-->
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="p-2 font-bold" style="color: rgb(192, 192, 192); ">#2</div><!--rang-->
+                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["subs"]["2."]["url"]}}'>{{data[date]["scoreboard"]["subs"]["2."]["name"]}}</a></div> <!--youtuber name-->
+                        <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["subs"]["2."]["subs"]}}</div> <!--view/likes/abos-->
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="p-2 font-bold" style="color: rgb(140, 120, 83); ">#3</div><!--rang-->
+                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["subs"]["3."]["url"]}}'>{{data[date]["scoreboard"]["subs"]["3."]["name"]}}</a></div> <!--youtuber name-->
+                        <div class="p-2 justify-self-end"> {{data[date]["scoreboard"]["subs"]["3."]["subs"]}}</div> <!--view/likes/abos-->
+                    </div>
+
+                </div>
+
+                <a class="flex justify-center" href="/site/subs">
+                    <button
+                        class="select-none rounded-lg bg-white py-3 px-6 my-2 text-center align-bottom font-sans text-xs font-bold uppercase text-white shadow-md "
+                        type="button" data-ripple-light="true">
+                        Go to full Stats
+                    </button>
+                </a>
             </div>
 
         </div>
-    </div>
+        <div class="rounded p-2 my-4 mx-2 md:mx-4 lg:mx-6 flex justify-center overflow-hidden shadow-lg"
+            style="background: linear-gradient(45deg , rgba(255, 0, 0, 0.6),rgba(255, 0, 0, 0.9));"><!--third card -->
+            <div class="p-4">
+                <div class="grid grid-cols-2 bg-gray-200 rounded-md my-1 p-1.5 w-full">
+                    <div class="text-sm font-semibold text-red-600">
+                        Youtube <img class="inline" src="https://datalyzer.ch/static/image/youtube.png" height="36px" width="36px">
 
+                    </div>
+                    <div class="flex self-center font-semibold justify-self-end text-red-600">Ø views</div>
+                </div>
+                <div class="justify-between bg-white rounded-md">
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="p-2 font-bold" style="color: rgb(228, 195, 113); ">#1</div><!--rang-->
+                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["views"]["1."]["url"]}}'>{{data[date]["scoreboard"]["views"]["1."]["name"]}}</a></div> <!--youtuber name-->
+                        <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["views"]["1."]["views"]}}</div> <!--view/likes/abos-->
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="p-2 font-bold" style="color: rgb(192, 192, 192); ">#2</div><!--rang-->
+                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["views"]["2."]["url"]}}'>{{data[date]["scoreboard"]["views"]["2."]["name"]}}</a></div> <!--youtuber name-->
+                        <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["views"]["2."]["views"]}}</div> <!--view/likes/abos-->
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="p-2 font-bold" style="color: rgb(140, 120, 83); ">#3</div><!--rang-->
+                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["views"]["3."]["url"]}}'>{{data[date]["scoreboard"]["views"]["3."]["name"]}}</a></div> <!--youtuber name-->
+                        <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["views"]["3."]["views"]}}</div> <!--view/likes/abos-->
+                    </div>
 
+                </div>
 
+                <a class="flex justify-center" href="/site/views">
+                    <button
+                        class="select-none rounded-lg bg-white py-3 px-6 my-2 text-center align-bottom font-sans text-xs font-bold uppercase text-white shadow-md "
+                        type="button" data-ripple-light="true">
+                        Go to full Stats
+                    </button>
+                </a>
+            </div>
+        </div>
+        <!-- <div class="rounded p-2 my-4 mx-2 md:mx-4 lg:mx-6 flex justify-center overflow-hidden shadow-lg"
+            style="background: #f09433; 
+        background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+        background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+        background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );">
+            <div class="p-4">
+                <div class="grid grid-cols-2 bg-gray-200 rounded-md my-1 p-1.5 w-full">
+                    <div class="text-sm font-semibold" style="
+                background: -webkit-linear-gradient(#e4a41a, #c30ffa);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;">
+                        Instagram <img class="inline" src="https://datalyzer.ch/static/image/instagram.png" height="32px" width="32px">
 
+                    </div>
+                    <div class="flex self-center font-semibold justify-self-end" style="
+                background: -webkit-linear-gradient(#e9a208, #c30ffa);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;"> Follower</div>
+                </div>
+                <div class="justify-between bg-white rounded-md">
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="p-2 font-bold" style="color: rgb(228, 195, 113); ">#1</div>
+                        <div class="p-2">Influencer</div>
+                        <div class="p-2 justify-self-end">Follower</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="p-2 font-bold" style="color: rgb(192, 192, 192); ">#2</div>
+                        <div class="p-2">Influencer</div>
+                        <div class="p-2 justify-self-end">Follower</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="p-2 font-bold" style="color: rgb(140, 120, 83); ">#3</div>
+                        <div class="p-2">Influencer</div>
+                        <div class="p-2 justify-self-end">Follower</div>
+                    </div>
 
+                </div>
 
-
-
-</body>
-
-</html>
+                <a class=" flex justify-center" href="charts.html">
+                    <button
+                        class="select-none rounded-lg bg-white py-3 px-6 my-2 text-center align-bottom font-sans text-xs font-bold uppercase text-orange-500 shadow-md "
+                        type="button" data-ripple-light="true">
+                        Go to full Stats
+                    </button>
+                </a>
+            </div> -->
+        </div>
+    
+{% endblock %}

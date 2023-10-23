@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 from flask import Flask, render_template , request,url_for, redirect, session, send_file,jsonify
-import json, requests, datetime, os
+import json, requests, datetime, os, time
 
 def clean_numb( input_str):
     num = input_str
@@ -52,8 +52,22 @@ def Web():
 
                 table = soup.find('div', attrs = {'class':'mx-auto max-w-screen-md'})
 
-
+                
                 for row in table.findAll('a'):
+
+                    
+                    try:
+                        img_link = row.findAll('img')[0].get('src')
+                    except Exception as e:
+                        img_link = None
+                    if not img_link == None:
+                        with open(f"pictures_data.json") as f:
+                            data = json.load(f)
+                        data[row.findAll('span')[2].text] = img_link
+                        with open(f"pictures_data.json", "w") as f:
+                            json.dump(data, f, indent=4)
+                        
+                    
                     if "https://nindo.de/charts/youtube/views" ==  URL:
                         views[row.findAll('span')[2].text] = {
                             'url': row['href'],
@@ -115,7 +129,7 @@ def Web():
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
         try:
-            with open(f"{output_dir}/{datetime.datetime.now().strftime('%d_%m')}.json") as f:
+            with open(f"{output_dir}/{datetime.datetime.now().strftime('%y%m%d')}.json") as f:
                 data = json.load(f)
         except FileNotFoundError:
             print("New File")
@@ -123,7 +137,7 @@ def Web():
 
         data[datetime.datetime.now().strftime('%H')] = final
 
-        with open(f"{output_dir}/{datetime.datetime.now().strftime('%d_%m')}.json", "w") as f:
+        with open(f"{output_dir}/{datetime.datetime.now().strftime('%y%m%d')}.json", "w") as f:
                 json.dump(data, f, indent=4)
         return "Erfolgreich"
     except Exception as e:
@@ -224,3 +238,11 @@ def setup( ):
 
     return api_key, country_codes
 
+def timer():
+    while True:
+        Web()
+        time.sleep(3600)
+
+if __name__ == "__main__":
+    timer()
+        

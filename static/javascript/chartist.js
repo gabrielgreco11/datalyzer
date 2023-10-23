@@ -1,104 +1,3 @@
-<!DOCTYPE html>
-<html lang="de" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>{% block title %}Home{% endblock %}</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/api/icon/img" type="image/x-icon">
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/chartist.css') }}">
-    <meta property="og:title" content="Datalyzer.ch" />
-    <meta property="og:image" content="https://datalyzer.ch/api/og_img/img" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nindo-Fake</title>
-</head>
-  <body
-    style="background: linear-gradient(90deg, rgba(156, 112, 62, 0.603) 0%, rgba(179, 175, 178, 0.952) 53%, rgba(153, 51, 4, 0.521) 100%);">
-
-    <nav style="background-color: rgba(3, 3, 3, 0.603);">
-        <div class="max-w flex flex-wrap items-center justify-between mx-auto p-4">
-
-
-            <h1 class="justify-start text-3xl font-bold hover:scale-105 animate"
-                style="background: linear-gradient(to bottom right, rgb(238, 7, 7), rgb(167, 124, 44)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                <a href="/">Datalyzer</a>
-
-            </h1>
-
-
-            <div class="w-auto" id="navbar-default">
-                <ul class="hidden font-bold lg:flex flex-row p-4  rounded-lg space-x-8 border-0">
-
-                   
-                    <li>
-                        <a href="/site/subs" class="block py-2 pl-3 pr-4 text-white rounded p-0 hover:scale-105">
-                            Subs</a>
-                    </li>
-                    <li>
-                        <a href="/site/likes" class="block py-2 pl-3 pr-4 text-white rounded p-0 hover:scale-105">Likes</a>
-                    </li>
-                    <li>
-                        <a href="/site/views" class="block py-2 pl-3 pr-4 text-white rounded p-0 hover:scale-105">Views</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="lg:hidden flex items-center"> <!-- Hamburger icon for mobile view-->
-                <button class="outline-none mobile-menu-button">
-                    <svg class=" w-6 h-6 text-gray-500 hover:scale-110" x-show="!showMenu" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
-
-        </div>
-
-
-        <!-- mobile menu -->
-        <div class="hidden mobile-menu" style="background-color: rgba(14, 14, 14, 0.781);">
-            <ul>
-                
-                <li><a href="/site/subs"
-                        class="block text-sm px-2 py-4 text-white hover:bg-neutral-700 transition duration-300">
-                        Subs</a>
-                </li>
-                <li><a href="/site/views"
-                        class="block text-sm px-2 py-4 text-white hover:bg-neutral-700 transition duration-300">Views</a>
-                </li>
-                <li><a href="/site/likes"
-                        class="block text-sm px-2 py-4 text-white hover:bg-neutral-700 transition duration-300">Likes</a>
-                </li>
-
-            </ul>
-        </div>
-        <script>
-            const btn = document.querySelector("button.mobile-menu-button");
-            const menu = document.querySelector(".mobile-menu");
-
-            btn.addEventListener("click", () => {
-                menu.classList.toggle("hidden");
-            });
-        </script>
-
-    </nav>
-    
-    
-      {% block content %} {% endblock %}
-    
-      <footer class="flex items-baseline align-baseline" style="background-color: rgba(3, 3, 3, 0.603);">
-        <div>
-
-          <h1>©Copyright</h1>
-          <h1>Geklaut von <a style="" href="https://www.Nindo.de">Nindo.de</a> (spontane Eigentumsübertragung)</h1>
-        </div>
-      </footer>
-</body>
-
-<script>
-
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module unless amdModuleId is set
@@ -140,6 +39,7 @@ var Chartist = {
    * This object contains all namespaces used within Chartist.
    *
    * @memberof Chartist.Core
+   * @type {{svg: string, xmlns: string, xhtml: string, xlink: string, ct: string}}
    */
   Chartist.namespaces = {
     svg: 'http://www.w3.org/2000/svg',
@@ -941,7 +841,7 @@ var Chartist = {
    * @param {Number} centerY X-axis coordinates of center point of circle segment
    * @param {Number} radius Radius of circle segment
    * @param {Number} angleInDegrees Angle of circle segment in degrees
-   *  Coordinates of point on circumference
+   * @return {{x:Number, y:Number}} Coordinates of point on circumference
    */
   Chartist.polarToCartesian = function (centerX, centerY, radius, angleInDegrees) {
     var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
@@ -4614,8 +4514,3 @@ var Chartist = {
 return Chartist;
 
 }));
-
-
-</script>
-
-</html>

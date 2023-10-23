@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} 
+{% block content%}
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/output.css') }}">
+<div class="flex justify-center p-6">
+    <h1 class="font-semibold text-3xl">Full Top 50 stats</h1>
+</div>
+<div class="flex justify-center p-6 flex-row">
+    <label for="metrics">Select a metric:</label>
+        <select id="metrics">
+            <option value="likes">Likes</option>
+            <option value="views">Views</option>
+            <option value="subs">Subscribers</option>
+        </select>
+</div>
+<div class="flex justify-center p-6 text-white" >       
+    <table class=" rounded-md" style="background: linear-gradient(45deg , rgba(255, 0, 0, 0.214),rgba(255, 0, 0, 0.329)); padding: 3rem;">
+        <thead>
+                <tr>
+                    <th>Channel ID</th>
+                    <th>Channel Name</th>
+                    <th>Sort Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for channel in data[last_date]["scoreboard"][sort].keys() %}
+                <tr>
+                    <td class="border-white">#{{channel}}</td>
+                    <td class="border-white flex justify-center"><a href='/youtuber{{ data[last_date]["scoreboard"][sort][channel]["url"] }}'>{{ data[last_date]["scoreboard"][sort][channel]["name"] }}</a></td>
+                    <td class="border-white">{{ data[last_date]["scoreboard"][sort][channel][sort] }}</td>
+            </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+    
+    <script>
+        // Den Pfad der aktuellen Seite erhalten
+        var path = window.location.pathname;
+
+        // Das letzte Element im Pfad extrahieren
+        var pathSegments = path.split("/");
+        var lastElement = pathSegments[pathSegments.length - 1];
+
+        document.getElementById("metrics").value = lastElement;
+
+        const dropdown = document.getElementById("metrics");
+        dropdown.addEventListener("change", function() {
+            const selectedMetric = dropdown.value;
+            console.log(selectedMetric)
+            window.location.href = "/site/" + selectedMetric;})
+    </script>
+{% endblock %}
