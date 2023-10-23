@@ -24,9 +24,9 @@
             <tbody>
                 {% for channel in data[last_date]["scoreboard"][sort].keys() %}
                 <tr>
-                    <td class="border-white">#{{channel}}</td>
-                    <td class="border-white flex justify-center"><a href='/youtuber{{ data[last_date]["scoreboard"][sort][channel]["url"] }}'>{{ data[last_date]["scoreboard"][sort][channel]["name"] }}</a></td>
-                    <td class="border-white">{{ data[last_date]["scoreboard"][sort][channel][sort] }}</td>
+                    <td class="border-white p-6">#{{channel}}</td>
+                    <td class="border-white flex justify-center p-6"><a href='/youtuber{{ data[last_date]["scoreboard"][sort][channel]["url"] }}'>{{ data[last_date]["scoreboard"][sort][channel]["name"] }}</a></td>
+                    <td class="border-white p-6">{{ data[last_date]["scoreboard"][sort][channel][sort] }}</td>
             </tr>
                 {% endfor %}
         </tbody>
