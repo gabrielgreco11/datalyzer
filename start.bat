@@ -6,6 +6,8 @@ git reset --hard
 git fetch
 git pull
 
+taskkill /f /im python.exe
+
 start /B py scrapper.py> log.txt
 start /B py main.py > log.txt
 
