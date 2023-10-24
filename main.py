@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect, session, send_file, jsonify
+from flask import Flask, render_template, request, url_for, redirect, session, send_file, jsonify, Response
 import json
 import requests
 import datetime
@@ -191,6 +191,10 @@ def base_test():
 @application.errorhandler(404)
 def not_found(e):
     return render_template("404.html")
+
+@application.route("/sitemap")
+def sitemap():
+    return send_file("sitemap.xml")
 
 @application.route("/rick")
 def rick_role():
