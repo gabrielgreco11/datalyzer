@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect, session, send_file, jsonify, Response
+from flask_sitemap import Sitemap
 import json
 import requests
 import datetime
@@ -7,6 +8,9 @@ import scrapper
 
 application = Flask(__name__)
 application.secret_key = "vS44D3LML9gi0vu1SAsjYePZ5TM6ecVyjgJcgZeMNVXS6HBkiy"
+application.config['SITEMAP_URL_SCHEME'] = 'https'
+application.config['SITEMAP_URL_PREFIX'] = '/sitemap/'
+sitemap = Sitemap(app=application)
 
 def scrapper_formater():
     folder_path = "output/"
@@ -192,6 +196,10 @@ def base_test():
 def not_found(e):
     return render_template("404.html")
 
+
+@application.route('/sitemap.xml')
+def sitemap_xml():
+    return send_file("sitemap.xml")
 @application.route("/sitemap")
 def sitemap():
     return send_file("sitemap.xml")
