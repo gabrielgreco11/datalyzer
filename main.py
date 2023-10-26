@@ -1,16 +1,13 @@
 from flask import Flask, render_template, request, url_for, redirect, session, send_file, jsonify, Response
-from flask_sitemap import Sitemap
 import json
 import requests
 import datetime
 import os
 import scrapper
 
+
 application = Flask(__name__)
-application.secret_key = "vS44D3LML9gi0vu1SAsjYePZ5TM6ecVyjgJcgZeMNVXS6HBkiy"
-application.config['SITEMAP_URL_SCHEME'] = 'https'
-application.config['SITEMAP_URL_PREFIX'] = '/sitemap/'
-sitemap = Sitemap(app=application)
+
 
 def scrapper_formater():
     folder_path = "output/"
@@ -153,6 +150,8 @@ def redirect_home():
     data = scrapper_formater()
     return redirect(f"/{list(data.keys())[-1]}")
 
+# Die folgenden Drei sind die "Pages" welche zu richtigen Seiten führt.
+
 @application.route("/<date>")
 def home(date):
     data = scrapper_formater()
@@ -185,6 +184,8 @@ def site(sort):
     else:
         return redirect("/site")
 
+# template und Base, beschrieben in 3.4.3.3
+
 @application.route("/template/<html>")
 def render_test(html):
     return render_template(f"{html}.html")
@@ -196,6 +197,7 @@ def base_test():
 def not_found(e):
     return render_template("404.html")
 
+# Sitemap enbindungen
 
 @application.route('/sitemap.xml')
 def sitemap_xml():
@@ -204,41 +206,22 @@ def sitemap_xml():
 def sitemap():
     return send_file("sitemap.xml")
 
-@application.route("/rick")
-def rick_role():
-    return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+# Dies ist eine Weiterlietung auf Github.
 
 @application.route("/git")
 def github():
     return redirect("https://github.com/gabrielgreco11/datalyzer")
 
 
-@application.route("/timer/<date>")
-def timer(date):
-    return render_template("timer.html")
-
+# Ist für den Restart zuständig.
+# Beschrieben in 3.3
 @application.route("/restart")
 def restart():
     open("restart", "w")
     return "Erfolgreich Gestartet"
 
-@application.route("/retard")
-def retard():
-    redirect("/restart")
+# Die vier folgenden Routen sind die API's, welche in der Dokumentation unter dem Punkt 3.4.4 beschrieben sind.
 
-@application.route("/scraper/show")
-def scrapper_show():
-   return scrapper_formater()
-
-@application.route("/static/image/<img>")
-def img(img):
-    return send_file(f"images/{img}")
-
-@application.route("/settings")
-def settings():
-    with open("config.json") as f:
-        data = json.load(f)
-    return render_template("settings.html",data = data)
 
 @application.route("/api/<what>/<format>")
 def api(what,format):
@@ -266,9 +249,55 @@ def api_edit(what, cmd, value):
                 json.dump(data, f, indent=4)
     return "Erfolgreich"
 
+@application.route("/static/image/<img>")
+def img(img):
+    return send_file(f"images/{img}")
+
+@application.route("/settings")
+def settings():
+    with open("config.json") as f:
+        data = json.load(f)
+    return render_template("settings.html",data = data)
+
+# Datalyzer.ch/api/get_all_data != Datalyzer.ch/scraper/show
+# Beide Routen führen zu einem JSON, jedoch wird Datalyzer.ch/api/get_all_data von Flask lesbar formatiert.
+# Datalyzer.ch/scraper/show gibt ein reines JSON zurück, was auf dem Handy oder auf alten Browsern zu Anzeigefehler führen kann, da der Browser es lesbar formatieren müssen.
+# Ich habe jedoch beides implementiert, da Datalyzer.ch/api/get_all_data nicht so performant wie Datalyzer.ch/scraper/show ist.
+
 @application.route("/api/get_all_data")
 def api_get_data():
     return jsonify(scrapper_formater())
+
+@application.route("/scraper/show")
+def scrapper_show():
+   return scrapper_formater()
+
+
+
+# Bitte von hier an nicht mehr beachten.
+# sind halb private Dinge von Nico Marra
+# Ich Brauchte einen Server und Domain, worauf dich es hosten konnte. Bitte Ignorieren.
+# Sie können es gerne anschauen, jedoch hat es nichts mit dem Projekt zu tun.
+
+@application.route("/timer/<date>")
+def timer(date):
+    return render_template("timer.html")
+
+@application.route("/retard")
+def retard():
+    redirect("/restart")
+
+@application.route("/rick")
+def rick_role():
+    return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+
+
+# Start Funktion 
+# host="0.0.0.0" implementiert, dass es auf localhost, 127.0.0.1 und auf der IP-Adresse gehostet wird.
+# Port ist über Cloudflare gelöst, da auf dem 80 Port der IP Adresse bereits eine andere Page ist. Deshalb mussten wir alle Anfragen auf den 5000 Port weiterleiten.
+
+
 
 if __name__ == "__main__":
     application.run(host="0.0.0.0", debug=True, port=5000)
