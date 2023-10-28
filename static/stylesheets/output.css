@@ -685,6 +685,10 @@ video {
   height: 1.25rem;
 }
 
+.h-56 {
+  height: 14rem;
+}
+
 .h-6 {
   height: 1.5rem;
 }
@@ -693,8 +697,8 @@ video {
   width: 4rem;
 }
 
-.w-24 {
-  width: 6rem;
+.w-48 {
+  width: 12rem;
 }
 
 .w-5 {
@@ -1261,10 +1265,6 @@ video {
 
   .lg\:flex {
     display: flex;
-  }
-
-  .lg\:grid {
-    display: grid;
   }
 
   .lg\:hidden {
