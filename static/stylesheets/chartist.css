@@ -653,6 +653,10 @@ video {
   margin-top: 4rem;
 }
 
+.mt-24 {
+  margin-top: 6rem;
+}
+
 .mt-auto {
   margin-top: auto;
 }
@@ -1293,10 +1297,6 @@ video {
     display: flex;
   }
 
-  .lg\:grid {
-    display: grid;
-  }
-
   .lg\:hidden {
     display: none;
   }
@@ -1313,11 +1313,5 @@ video {
   .lg\:px-36 {
     padding-left: 9rem;
     padding-right: 9rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .xl\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
