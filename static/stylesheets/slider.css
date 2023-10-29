@@ -29,8 +29,8 @@ h2 {
 }
 
 .slider .slide-track {
-	-webkit-animation: scroll 15 linear infinite;
-	animation: scroll 15s linear infinite;
+	-webkit-animation: scroll 12s linear infinite;
+	animation: scroll 12s linear infinite;
 	display: flex;
 	width: calc(250px * 4);
     padding: 20px;
@@ -44,7 +44,6 @@ h2 {
 .slider .slide img {
     width: 100%;
 	height: 200px;
-	
     padding: 20px;
 }
 
