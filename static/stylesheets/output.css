@@ -596,12 +596,20 @@ video {
   bottom: 0px;
 }
 
+.top-0 {
+  top: 0px;
+}
+
 .isolate {
   isolation: isolate;
 }
 
 .z-\[2\] {
   z-index: 2;
+}
+
+.z-50 {
+  z-index: 50;
 }
 
 .m-0 {
