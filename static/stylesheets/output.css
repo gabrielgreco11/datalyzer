@@ -604,12 +604,12 @@ video {
   isolation: isolate;
 }
 
-.z-\[2\] {
-  z-index: 2;
-}
-
 .z-50 {
   z-index: 50;
+}
+
+.z-\[2\] {
+  z-index: 2;
 }
 
 .m-0 {
@@ -655,10 +655,6 @@ video {
 
 .mt-0 {
   margin-top: 0px;
-}
-
-.mt-24 {
-  margin-top: 6rem;
 }
 
 .mt-16 {
@@ -827,16 +823,16 @@ video {
   justify-content: flex-start;
 }
 
+.justify-end {
+  justify-content: flex-end;
+}
+
 .justify-center {
   justify-content: center;
 }
 
 .justify-between {
   justify-content: space-between;
-}
-
-.justify-items-end {
-  justify-items: end;
 }
 
 .gap-2 {
