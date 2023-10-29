@@ -1,6 +1,7 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} 
 {% block content%}
-<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/output.css') }}">  
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/output.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/slider.css')}}">  
     
         <div class="grid grid-cols-1 lg:grid-cols-2 p-6 lg:px-36 py-12 mt-0 lg:mt-10">
             <div class="grid grid-rows-3 p-1">
@@ -62,7 +63,24 @@
                     <img class="w-48 h-56 rounded-md" src="https://datalyzer.ch/static/image/julienBam.png" alt="julienBam">
                 </div>
             </div>
-    
+            
+            <div class="wrapper">
+                <div class="slider">
+                    <div class="slide-track">
+                        
+                        <div class="slide">
+                            <img src="/images/tbz.png" alt="">
+                        </div>
+                        
+                        <div class="slide">
+                            <img src="/images/logoyt.png" alt="">
+                        </div>
+                        <div class="slide">
+                            <img src="/images/ASE.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
     
         <div class="rounded p-2 my-4 mx-2 md:mx-4 lg:mx-6 flex justify-center overflow-hidden shadow-lg"
