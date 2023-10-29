@@ -661,10 +661,6 @@ video {
   margin-top: 6rem;
 }
 
-.mt-auto {
-  margin-top: auto;
-}
-
 .block {
   display: block;
 }
@@ -813,10 +809,6 @@ video {
 
 .items-center {
   align-items: center;
-}
-
-.items-baseline {
-  align-items: baseline;
 }
 
 .items-stretch {
@@ -1018,10 +1010,6 @@ video {
 
 .text-center {
   text-align: center;
-}
-
-.align-baseline {
-  vertical-align: baseline;
 }
 
 .align-middle {
