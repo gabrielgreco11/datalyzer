@@ -596,6 +596,10 @@ video {
   bottom: 0px;
 }
 
+.left-0 {
+  left: 0px;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -655,10 +659,6 @@ video {
 
 .mt-24 {
   margin-top: 6rem;
-}
-
-.mt-auto {
-  margin-top: auto;
 }
 
 .block {
@@ -809,10 +809,6 @@ video {
 
 .items-center {
   align-items: center;
-}
-
-.items-baseline {
-  align-items: baseline;
 }
 
 .items-stretch {
@@ -1014,10 +1010,6 @@ video {
 
 .text-center {
   text-align: center;
-}
-
-.align-baseline {
-  vertical-align: baseline;
 }
 
 .align-middle {
