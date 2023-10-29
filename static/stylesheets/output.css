@@ -596,24 +596,12 @@ video {
   bottom: 0px;
 }
 
-.top-0 {
-  top: 0px;
-}
-
 .isolate {
   isolation: isolate;
 }
 
 .z-\[2\] {
   z-index: 2;
-}
-
-.z-50 {
-  z-index: 50;
-}
-
-.z-10 {
-  z-index: 10;
 }
 
 .m-0 {
@@ -667,6 +655,10 @@ video {
 
 .mt-auto {
   margin-top: auto;
+}
+
+.mt-24 {
+  margin-top: 6rem;
 }
 
 .block {
@@ -1303,10 +1295,6 @@ video {
 
   .lg\:flex {
     display: flex;
-  }
-
-  .lg\:grid {
-    display: grid;
   }
 
   .lg\:hidden {
