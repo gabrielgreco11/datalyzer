@@ -7,6 +7,15 @@
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
 
+.component-likes_clean{
+  background-color: rgb(215, 2, 6) !important; 
+}
+.component-subs_clean{
+  background-color: rgb(244, 198, 61) !important; 
+}
+.component-views_clean{
+  background-color: rgb(240, 91, 79) !important; 
+}
 *,
 ::before,
 ::after {
