@@ -6,7 +6,8 @@ git reset --hard
 git fetch
 git pull
 
-start /B py main.py > log.txt
+start /B py scrapper.py
+start /B py main.py
 
 :loop
 timeout /t 1 /nobreak > NULL

@@ -1,8 +1,9 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} 
 {% block content%}
-<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/output.css') }}">  
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/output.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/slider.css')}}">  
     
-        <div class="grid grid-cols-1 lg:grid-cols-2 p-6 lg:px-36 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 p-6 lg:px-36 py-12 mt-0 lg:mt-10">
             <div class="grid grid-rows-3 p-1">
                 <div class="flex self-end justify-start p-1">
                     <p class=" text-5xl md:text-8xl inline-block overflow-hidden whitespace-nowrap animate-typing border-r-4" style="background: linear-gradient(to bottom right, rgb(238, 7, 7), rgb(167, 124, 44)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
@@ -20,7 +21,7 @@
                   
                       <!--Search button-->
                       <button
-                        class="relative z-[2] flex items-center rounded-r bg-primary px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
+                        class="relative z-[2] flex items-center rounded-r px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
                         type="button"
                         id="button-addon1"
                         data-te-ripple-init
@@ -49,136 +50,168 @@
                 </div>
             </div>
             <div class="grid grid-cols-2 p-6">
-                <div class="flex justify-center">
-                    <img class="w-16 h-16 rounded-md" src="https://datalyzer.ch/static/image/MontanaBlack.jpg" alt="monteeee!!!">
+                <div class="flex justify-end">
+                    <img class="w-48 h-56 rounded-md" src="https://datalyzer.ch/static/image/MontanaBlack.jpg" alt="monteeee!!!">
                 </div>
-                <div class="flex justify-center">
-                    <img class="w-16 h-16 rounded-md" src="https://datalyzer.ch/static/image/Aldi_S%C3%BCd_2017_logo.svg.png" alt="aldiiii">
+                <div class="flex justify-start">
+                    <img class="w-48 h-56 rounded-md" src="https://datalyzer.ch/static/image/Aldi_S%C3%BCd_2017_logo.svg.png" alt="aldiiii">
                 </div>
-                <div class="flex justify-center">
-                    <img class="w-16 h-16 rounded-md" src="https://datalyzer.ch/static/image/pamelaReifYT.png" alt="pamelaReif">
+                <div class="flex justify-end">
+                    <img class="w-48 h-56 rounded-md" src="https://datalyzer.ch/static/image/pamelaReifYT.png" alt="pamelaReif">
                 </div>
-                <div class="flex justify-center">
-                    <img class="w-16 h-16 rounded-md" src="https://datalyzer.ch/static/image/julienBam.png" alt="julienBam">
+                <div class="flex justify-start">
+                    <img class="w-48 h-56 rounded-md" src="https://datalyzer.ch/static/image/julienBam.png" alt="julienBam">
                 </div>
             </div>
-    
+            
+            
 
-    
-        <div class="rounded p-2 my-4 mx-2 md:mx-4 lg:mx-6 flex justify-center overflow-hidden shadow-lg"
-            style="background: linear-gradient(45deg , rgba(255, 0, 0, 0.6), rgba(255, 0, 0, 0.9));"><!--first card -->
-            <div class="p-4">
-                <div class="grid grid-cols-2 bg-gray-200 rounded-md my-1 p-1.5 w-full">
-                    <div class="text-sm font-semibold text-red-600">
-                        Youtube <img class="inline" src="https://datalyzer.ch/static/image/youtube.png" height="36px" width="36px">
-
+         </div>
+         <div class="wrapper">
+            <div class="slider">
+                <div class="slide-track">
+                    
+                    <div class="slide">
+                        <img src="https://datalyzer.ch/static/image/tbzlogov2.png" alt="">
                     </div>
-                    <div class="flex self-center justify-self-end font-semibold text-red-600">Ø likes</div>
+                    
+                    <div class="slide">
+                        <img src="https://datalyzer.ch/static/image/logoyt.png" alt="">
+                    </div>
+                    <div class="slide">
+                        <img src="https://datalyzer.ch/static/image/ASEnew.png" alt="">
+                    </div>
+                    <div class="slide">
+                        <img src="https://datalyzer.ch/static/image/opten_logo.png" alt="">
+                    </div>
+                    <div class="slide">
+                        <img src="https://datalyzer.ch/static/image/data.png" alt="">
+                    </div>
+                    <div class="slide">
+                        <img src="https://datalyzer.ch/static/image/instagram.png" alt="">
+                    </div>
+                    <div class="slide">
+                        <img src="https://datalyzer.ch/static/image/nindologonew.png" alt="">
+                    </div>
                 </div>
-                <div class="justify-between bg-white rounded-md">
-                    <div class="grid grid-cols-3 gap-2">
-                        <div class="p-2 font-bold" style="color: rgb(228, 195, 113); ">#1</div><!--rang-->
-                        <div class="p-2"><a class="hover:-scale-105" href='/youtuber{{data[date]["scoreboard"]["likes"]["1."]["url"]}}'>{{data[date]["scoreboard"]["likes"]["1."]["name"]}}</a></div>
-                        <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["likes"]["1."]["likes"]}}</div> <!--view/likes/abos-->
-                    </div>
-                    <div class="grid grid-cols-3 gap-2">
-                        <div class="p-2 font-bold" style="color: rgb(192, 192, 192); ">#2</div><!--rang-->
-                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["likes"]["2."]["url"]}}'>{{data[date]["scoreboard"]["likes"]["2."]["name"]}}</a></div> <!--youtuber name-->
-                        <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["likes"]["2."]["likes"]}}</div> <!--view/likes/abos-->
-                    </div>
-                    <div class="grid grid-cols-3 gap-2">
-                        <div class="p-2 font-bold" style="color: rgb(140, 120, 83); ">#3</div><!--rang-->
-                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["likes"]["3."]["url"]}}'>{{data[date]["scoreboard"]["likes"]["3."]["name"]}}</a></div> <!--youtuber name-->
-                        <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["likes"]["3."]["likes"]}}</div> <!--view/likes/abos-->
-                    </div>
-
-                </div>
-
-                <a class="flex justify-center" href="/site/likes">
-                    <button
-                        class=" flex select-none rounded-lg bg-white py-3 px-6 my-2 text-center items-center align-bottom font-sans text-xs font-bold uppercase text-white shadow-md "
-                        type="button" data-ripple-light="true">
-                        Go to full Stats
-                    </button>
-                </a>
             </div>
-
         </div>
-        <div class="rounded p-2 my-4 mx-2 md:mx-4 lg:mx-6 flex justify-center overflow-hidden shadow-lg"
-            style="background: linear-gradient(45deg , rgba(255, 0, 0, 0.6), rgba(255, 0, 0, 0.9));"><!--second card -->
-            <div class="p-4">
-                <div class="grid grid-cols-2 bg-gray-200 rounded-md my-1 p-1.5 w-full">
-                    <div class="text-sm font-semibold text-red-600">
-                        Youtube <img class="inline" src="https://datalyzer.ch/static/image/youtube.png" height="36px" width="36px">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 px-6 lg:px-3">
+            <div class="rounded p-2 my-4 mx-2 md:mx-4 lg:mx-6 flex justify-center overflow-hidden shadow-lg"
+                style="background: linear-gradient(45deg , rgba(255, 0, 0, 0.6), rgba(255, 0, 0, 0.9));"><!--first card -->
+                <div class="p-4">
+                    <div class="grid grid-cols-2 bg-gray-200 rounded-md my-1 p-1.5 w-full">
+                        <div class="text-sm font-semibold text-red-600">
+                            Youtube <img class="inline" src="https://datalyzer.ch/static/image/youtube.png" height="36px" width="36px">
+
+                        </div>
+                        <div class="flex self-center justify-self-end font-semibold text-red-600">Ø likes</div>
+                    </div>
+                    <div class="justify-between bg-white rounded-md">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="p-2 font-bold" style="color: rgb(228, 195, 113); ">#1</div><!--rang-->
+                            <div class="p-2"><a class="hover:scale-105" href='/youtuber{{data[date]["scoreboard"]["likes"]["1."]["url"]}}'>{{data[date]["scoreboard"]["likes"]["1."]["name"]}}</a></div>
+                            <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["likes"]["1."]["likes"]}}</div> <!--view/likes/abos-->
+                        </div>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="p-2 font-bold" style="color: rgb(192, 192, 192); ">#2</div><!--rang-->
+                            <div class="p-2"><a class="hover:scale-105" href='/youtuber{{data[date]["scoreboard"]["likes"]["2."]["url"]}}'>{{data[date]["scoreboard"]["likes"]["2."]["name"]}}</a></div> <!--youtuber name-->
+                            <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["likes"]["2."]["likes"]}}</div> <!--view/likes/abos-->
+                        </div>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="p-2 font-bold" style="color: rgb(140, 120, 83); ">#3</div><!--rang-->
+                            <div class="p-2"><a class="hover:scale-105" href='/youtuber{{data[date]["scoreboard"]["likes"]["3."]["url"]}}'>{{data[date]["scoreboard"]["likes"]["3."]["name"]}}</a></div> <!--youtuber name-->
+                            <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["likes"]["3."]["likes"]}}</div> <!--view/likes/abos-->
+                        </div>
 
                     </div>
-                    <div class="flex self-center font-semibold justify-self-end  text-red-600">Subscriber</div>
+
+                    <a class="flex justify-center" href="/site/likes">
+                        <button
+                            class=" flex select-none rounded-lg bg-white py-3 px-6 my-2 text-center items-center align-bottom font-sans text-xs font-bold uppercase text-black shadow-md "
+                            type="button" data-ripple-light="true">
+                            Go to full Stats
+                        </button>
+                    </a>
                 </div>
-                <div class="justify-between bg-white rounded-md">
-                    <div class="grid grid-cols-3 gap-2">
-                        <div class="p-2 font-bold" style="color: rgb(228, 195, 113); ">#1</div><!--rang-->
-                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["subs"]["1."]["url"]}}'>{{data[date]["scoreboard"]["subs"]["1."]["name"]}}</a></div> <!--youtuber name-->
-                        <div class="p-2 justify-self-end"> {{data[date]["scoreboard"]["subs"]["1."]["subs"]}}</div> <!--view/likes/abos-->
-                    </div>
-                    <div class="grid grid-cols-3 gap-2">
-                        <div class="p-2 font-bold" style="color: rgb(192, 192, 192); ">#2</div><!--rang-->
-                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["subs"]["2."]["url"]}}'>{{data[date]["scoreboard"]["subs"]["2."]["name"]}}</a></div> <!--youtuber name-->
-                        <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["subs"]["2."]["subs"]}}</div> <!--view/likes/abos-->
-                    </div>
-                    <div class="grid grid-cols-3 gap-2">
-                        <div class="p-2 font-bold" style="color: rgb(140, 120, 83); ">#3</div><!--rang-->
-                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["subs"]["3."]["url"]}}'>{{data[date]["scoreboard"]["subs"]["3."]["name"]}}</a></div> <!--youtuber name-->
-                        <div class="p-2 justify-self-end"> {{data[date]["scoreboard"]["subs"]["3."]["subs"]}}</div> <!--view/likes/abos-->
-                    </div>
 
-                </div>
-
-                <a class="flex justify-center" href="/site/subs">
-                    <button
-                        class="select-none rounded-lg bg-white py-3 px-6 my-2 text-center align-bottom font-sans text-xs font-bold uppercase text-white shadow-md "
-                        type="button" data-ripple-light="true">
-                        Go to full Stats
-                    </button>
-                </a>
             </div>
+            <div class="rounded p-2 my-4 mx-2 md:mx-4 lg:mx-6 flex justify-center overflow-hidden shadow-lg"
+                style="background: linear-gradient(45deg , rgba(255, 0, 0, 0.6), rgba(255, 0, 0, 0.9));"><!--second card -->
+                <div class="p-4">
+                    <div class="grid grid-cols-2 bg-gray-200 rounded-md my-1 p-1.5 w-full">
+                        <div class="text-sm font-semibold text-red-600">
+                            Youtube <img class="inline" src="https://datalyzer.ch/static/image/youtube.png" height="36px" width="36px">
 
-        </div>
-        <div class="rounded p-2 my-4 mx-2 md:mx-4 lg:mx-6 flex justify-center overflow-hidden shadow-lg"
-            style="background: linear-gradient(45deg , rgba(255, 0, 0, 0.6),rgba(255, 0, 0, 0.9));"><!--third card -->
-            <div class="p-4">
-                <div class="grid grid-cols-2 bg-gray-200 rounded-md my-1 p-1.5 w-full">
-                    <div class="text-sm font-semibold text-red-600">
-                        Youtube <img class="inline" src="https://datalyzer.ch/static/image/youtube.png" height="36px" width="36px">
+                        </div>
+                        <div class="flex self-center font-semibold justify-self-end  text-red-600">Subscriber</div>
+                    </div>
+                    <div class="justify-between bg-white rounded-md">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="p-2 font-bold" style="color: rgb(228, 195, 113); ">#1</div><!--rang-->
+                            <div class="p-2"><a class="hover:scale-105" href='/youtuber{{data[date]["scoreboard"]["subs"]["1."]["url"]}}'>{{data[date]["scoreboard"]["subs"]["1."]["name"]}}</a></div> <!--youtuber name-->
+                            <div class="p-2 justify-self-end"> {{data[date]["scoreboard"]["subs"]["1."]["subs"]}}</div> <!--view/likes/abos-->
+                        </div>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="p-2 font-bold" style="color: rgb(192, 192, 192); ">#2</div><!--rang-->
+                            <div class="p-2"><a class="hover:scale-105" href='/youtuber{{data[date]["scoreboard"]["subs"]["2."]["url"]}}'>{{data[date]["scoreboard"]["subs"]["2."]["name"]}}</a></div> <!--youtuber name-->
+                            <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["subs"]["2."]["subs"]}}</div> <!--view/likes/abos-->
+                        </div>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="p-2 font-bold" style="color: rgb(140, 120, 83); ">#3</div><!--rang-->
+                            <div class="p-2"><a class="hover:scale-105" href='/youtuber{{data[date]["scoreboard"]["subs"]["3."]["url"]}}'>{{data[date]["scoreboard"]["subs"]["3."]["name"]}}</a></div> <!--youtuber name-->
+                            <div class="p-2 justify-self-end"> {{data[date]["scoreboard"]["subs"]["3."]["subs"]}}</div> <!--view/likes/abos-->
+                        </div>
 
                     </div>
-                    <div class="flex self-center font-semibold justify-self-end text-red-600">Ø views</div>
+
+                    <a class="flex justify-center" href="/site/subs">
+                        <button
+                            class="select-none rounded-lg bg-white py-3 px-6 my-2 text-center align-bottom font-sans text-xs font-bold uppercase text-black shadow-md "
+                            type="button" data-ripple-light="true">
+                            Go to full Stats
+                        </button>
+                    </a>
                 </div>
-                <div class="justify-between bg-white rounded-md">
-                    <div class="grid grid-cols-3 gap-2">
-                        <div class="p-2 font-bold" style="color: rgb(228, 195, 113); ">#1</div><!--rang-->
-                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["views"]["1."]["url"]}}'>{{data[date]["scoreboard"]["views"]["1."]["name"]}}</a></div> <!--youtuber name-->
-                        <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["views"]["1."]["views"]}}</div> <!--view/likes/abos-->
+
+            </div>
+            <div class="rounded p-2 my-4 mx-2 md:mx-4 lg:mx-6 flex justify-center overflow-hidden shadow-lg"
+                style="background: linear-gradient(45deg , rgba(255, 0, 0, 0.6),rgba(255, 0, 0, 0.9));"><!--third card -->
+                <div class="p-4">
+                    <div class="grid grid-cols-2 bg-gray-200 rounded-md my-1 p-1.5 w-full">
+                        <div class="text-sm font-semibold text-red-600">
+                            Youtube <img class="inline" src="https://datalyzer.ch/static/image/youtube.png" height="36px" width="36px">
+
+                        </div>
+                        <div class="flex self-center font-semibold justify-self-end text-red-600">Ø views</div>
                     </div>
-                    <div class="grid grid-cols-3 gap-2">
-                        <div class="p-2 font-bold" style="color: rgb(192, 192, 192); ">#2</div><!--rang-->
-                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["views"]["2."]["url"]}}'>{{data[date]["scoreboard"]["views"]["2."]["name"]}}</a></div> <!--youtuber name-->
-                        <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["views"]["2."]["views"]}}</div> <!--view/likes/abos-->
-                    </div>
-                    <div class="grid grid-cols-3 gap-2">
-                        <div class="p-2 font-bold" style="color: rgb(140, 120, 83); ">#3</div><!--rang-->
-                        <div class="p-2"><a href='/youtuber{{data[date]["scoreboard"]["views"]["3."]["url"]}}'>{{data[date]["scoreboard"]["views"]["3."]["name"]}}</a></div> <!--youtuber name-->
-                        <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["views"]["3."]["views"]}}</div> <!--view/likes/abos-->
+                    <div class="justify-between bg-white rounded-md">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="p-2 font-bold" style="color: rgb(228, 195, 113); ">#1</div><!--rang-->
+                            <div class="p-2"><a class="hover:scale-105" href='/youtuber{{data[date]["scoreboard"]["views"]["1."]["url"]}}'>{{data[date]["scoreboard"]["views"]["1."]["name"]}}</a></div> <!--youtuber name-->
+                            <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["views"]["1."]["views"]}}</div> <!--view/likes/abos-->
+                        </div>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="p-2 font-bold" style="color: rgb(192, 192, 192); ">#2</div><!--rang-->
+                            <div class="p-2"><a class="hover:scale-105" href='/youtuber{{data[date]["scoreboard"]["views"]["2."]["url"]}}'>{{data[date]["scoreboard"]["views"]["2."]["name"]}}</a></div> <!--youtuber name-->
+                            <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["views"]["2."]["views"]}}</div> <!--view/likes/abos-->
+                        </div>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="p-2 font-bold" style="color: rgb(140, 120, 83); ">#3</div><!--rang-->
+                            <div class="p-2"><a class="hover:scale-105" href='/youtuber{{data[date]["scoreboard"]["views"]["3."]["url"]}}'>{{data[date]["scoreboard"]["views"]["3."]["name"]}}</a></div> <!--youtuber name-->
+                            <div class="p-2 justify-self-end">{{data[date]["scoreboard"]["views"]["3."]["views"]}}</div> <!--view/likes/abos-->
+                        </div>
+
                     </div>
 
+                    <a class="flex justify-center" href="/site/views">
+                        <button
+                            class="select-none rounded-lg bg-white py-3 px-6 my-2 text-center align-bottom font-sans text-xs font-bold uppercase text-black shadow-md "
+                            type="button" data-ripple-light="true">
+                            Go to full Stats
+                        </button>
+                    </a>
                 </div>
-
-                <a class="flex justify-center" href="/site/views">
-                    <button
-                        class="select-none rounded-lg bg-white py-3 px-6 my-2 text-center align-bottom font-sans text-xs font-bold uppercase text-white shadow-md "
-                        type="button" data-ripple-light="true">
-                        Go to full Stats
-                    </button>
-                </a>
             </div>
         </div>
         <!-- <div class="rounded p-2 my-4 mx-2 md:mx-4 lg:mx-6 flex justify-center overflow-hidden shadow-lg"

@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-  './base.html','./index.html', './charts.html,', './sites.html', 'fokus_one_youtuber.html','./settings.html' ],
+  './templates/base.html','./templates/index.html', './templates/charts.html,', './templates/sites.html', 'templates/fokus_one_youtuber.html','./templates/settings.html' ],
   theme: {
     extend: {
       animation: {
