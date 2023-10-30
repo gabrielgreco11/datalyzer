@@ -43,7 +43,7 @@ h2 {
 
 .slider .slide img {
     width: 300px;
-	height: 200px;
+	height: 100%;
     padding: 20px;
 }
 
