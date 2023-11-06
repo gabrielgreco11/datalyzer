@@ -292,7 +292,7 @@ def rick_role():
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 
 @application.route("/rede")
-def rick_role():
+def rede():
     return redirect("https://www.youtube.com/watch?v=FJ3N_2r6R-o")
 
 
