@@ -212,6 +212,10 @@ def sitemap():
 def github():
     return redirect("https://github.com/gabrielgreco11/datalyzer")
 
+@application.route("/dok")
+def dokumentation():
+    return send_file("Projektdokumentation_Datalyzer.pdf")
+
 
 # Ist für den Restart zuständig.
 # Beschrieben in 3.3
