@@ -293,7 +293,7 @@ def retard():
 
 @application.route("/rick")
 def rick_role():
-    return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+    return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ?autoplay=1")
 
 @application.route("/rede")
 def rede():
