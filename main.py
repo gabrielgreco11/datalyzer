@@ -297,7 +297,7 @@ def rick_role():
 
 @application.route("/rede")
 def rede():
-    return redirect("https://www.youtube.com/watch?v=FJ3N_2r6R-o")
+    return redirect("https://www.youtube.com/watch?v=FJ3N_2r6R-o?autoplay=1")
 
 
 # Start Funktion 
